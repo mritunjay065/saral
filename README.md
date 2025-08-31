@@ -6,7 +6,7 @@ for the link you can access through-saral-disaster-cz89zrt95-rgnarok2004-1821s-p
 # 🌐SARAL – AI Digital Twin for Disaster Management  
 
 SARAL-India is a **web-based prototype** that creates a **real-time digital twin of disaster-prone areas in India**.  
-It combines **AI** to help authorities and citizens **predict, monitor, and respond to disasters faster**.  
+It combines **AI,IOT and Drones** to help authorities and citizens **predict, monitor, and respond to disasters faster**.  
 
 ---
 
