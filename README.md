@@ -45,4 +45,4 @@ It combines **AI,IOT and Drones** to help authorities and citizens **predict, mo
 
 ## 🚀 Getting Started  
 
-
+for the link you can access through-saral-disaster-cz89zrt95-rgnarok2004-1821s-projects.vercel.app
