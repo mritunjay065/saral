@@ -1,0 +1,704 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="https://static.readdy.ai/static/e.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DisasterAI - AI-Driven Emergency Response System</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#3b82f6',secondary:'#1e40af'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+.highlight-section {
+animation: highlightPulse 1s ease-in-out;
+}
+@keyframes highlightPulse {
+0% { transform: scale(1); }
+50% { transform: scale(1.005); }
+100% { transform: scale(1); }
+}
+.nav-link.active {
+position: relative;
+}
+.nav-link.active::after {
+content: '';
+position: absolute;
+bottom: -4px;
+left: 0;
+width: 100%;
+height: 2px;
+background-color: #3b82f6;
+transform: scaleX(0);
+animation: navIndicator 0.3s forwards;
+}
+@keyframes navIndicator {
+to { transform: scaleX(1); }
+}
+.hero-bg {
+background: linear-gradient(135deg, #1a365d 0%, #2563eb 100%);
+position: relative;
+overflow: hidden;
+}
+.hero-bg::before {
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-image: url('https://readdy.ai/api/search-image?query=Natural%20disaster%20emergency%20response%20team%20in%20action%2C%20rescue%20workers%20in%20uniform%20helping%20people%20during%20flood%20disaster%2C%20dramatic%20scene%20with%20professional%20emergency%20response%20vehicles%20and%20equipment%2C%20heroic%20rescue%20operation%20in%20progress%2C%20photorealistic%2C%20cinematic%20lighting%2C%20high%20detail&width=1920&height=1080&seq=hero-disaster&orientation=landscape');
+background-size: cover;
+background-position: center;
+opacity: 0.4;
+}
+.map-container {
+background-image: url('https://public.readdy.ai/gen_page/map_placeholder_1280x720.png');
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+}
+</style>
+</head>
+<body class="bg-slate-900 text-white">
+<!-- Header -->
+<header class="bg-slate-800 border-b border-slate-700 px-6 py-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center space-x-8">
+<div class="flex items-center space-x-3">
+<div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+<i class="ri-shield-check-fill text-white text-xl"></i>
+</div>
+<h1 class="text-2xl font-bold text-white">SARAL</h1>
+</div>
+<nav class="hidden md:flex space-x-6">
+<a href="#main-dashboard" class="text-white hover:text-primary transition-colors nav-link active">Dashboard</a>
+<a href="https://readdy.ai/home/06c0c69d-c94b-4ba8-9379-9dc823b83c5a/7cbf2a42-eca8-4467-8c38-cbf5f0ca8614" data-readdy="true" class="text-slate-300 hover:text-primary transition-colors nav-link">Alerts</a>
+<a href="#" class="text-slate-300 hover:text-primary transition-colors nav-link">Resources</a>
+<a href="#" class="text-slate-300 hover:text-primary transition-colors nav-link">Analytics</a>
+</nav>
+</div>
+<div class="flex items-center space-x-4">
+<div class="text-sm text-slate-300">
+<div>Aug 28, 2025 14:32 IST</div>
+<div class="text-xs">Weather: Heavy Rain</div>
+</div>
+<button class="w-10 h-10 bg-red-600 rounded-lg flex items-center justify-center hover:bg-red-700 transition-colors !rounded-button whitespace-nowrap">
+<i class="ri-alarm-warning-fill text-white"></i>
+</button>
+<button class="w-10 h-10 bg-slate-700 rounded-lg flex items-center justify-center hover:bg-slate-600 transition-colors !rounded-button whitespace-nowrap">
+<i class="ri-notification-3-line text-white"></i>
+</button>
+<div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+<i class="ri-user-line text-white"></i>
+</div>
+</div>
+</div>
+</header>
+<!-- Hero Section -->
+<section class="hero-bg relative min-h-96 flex items-center">
+<div class="absolute inset-0 bg-gradient-to-r from-slate-900/90 to-transparent"></div>
+<div class="relative w-full px-6 py-16">
+<div class="max-w-2xl">
+<h2 class="text-5xl font-bold mb-6 leading-tight">Smart AI for Response, Allocation & Logistics</h2>
+<p class="text-xl text-slate-200 mb-8 leading-relaxed">Predict risks, detect incidents, optimize resources, and coordinate emergency responses with our comprehensive disaster management platform powered by artificial intelligence.</p>
+<div class="flex space-x-4">
+<button class="bg-primary hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors !rounded-button whitespace-nowrap">
+Launch Command Center
+</button>
+<button class="border border-white text-white hover:bg-white hover:text-slate-900 px-8 py-3 rounded-lg font-semibold transition-colors !rounded-button whitespace-nowrap">
+View Demo
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Main Dashboard -->
+<section id="main-dashboard" class="px-6 py-8">
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 transition-all duration-300">
+<!-- Interactive Map -->
+<div class="lg:col-span-2 bg-slate-800 rounded-xl p-6">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-xl font-semibold">Risk Assessment & Incident Map</h3>
+<div class="flex space-x-2">
+<button class="px-4 py-2 bg-primary text-white rounded-lg text-sm !rounded-button whitespace-nowrap">Risk Zones</button>
+<button class="px-4 py-2 bg-slate-700 text-slate-300 rounded-lg text-sm hover:bg-slate-600 transition-colors !rounded-button whitespace-nowrap">Incidents</button>
+<button class="px-4 py-2 bg-slate-700 text-slate-300 rounded-lg text-sm hover:bg-slate-600 transition-colors !rounded-button whitespace-nowrap">Resources</button>
+</div>
+</div>
+<div class="map-container h-96 rounded-lg relative overflow-hidden">
+<div class="absolute top-4 left-4 space-y-2">
+<div class="bg-red-600/90 text-white px-3 py-1 rounded-lg text-sm flex items-center space-x-2">
+<div class="w-2 h-2 bg-red-400 rounded-full animate-pulse"></div>
+<span>High Risk Zone</span>
+</div>
+<div class="bg-yellow-600/90 text-white px-3 py-1 rounded-lg text-sm flex items-center space-x-2">
+<div class="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
+<span>Medium Risk Zone</span>
+</div>
+<div class="bg-green-600/90 text-white px-3 py-1 rounded-lg text-sm flex items-center space-x-2">
+<div class="w-2 h-2 bg-green-400 rounded-full"></div>
+<span>Safe Zone</span>
+</div>
+</div>
+<div class="absolute top-4 right-4 bg-slate-800/90 rounded-lg p-3">
+<div class="text-sm text-slate-300 mb-2">Active Incidents</div>
+<div class="space-y-1">
+<div class="flex items-center space-x-2 text-sm">
+<div class="w-2 h-2 bg-red-500 rounded-full"></div>
+<span>Flood - Sector 15</span>
+</div>
+<div class="flex items-center space-x-2 text-sm">
+<div class="w-2 h-2 bg-orange-500 rounded-full"></div>
+<span>Landslide - Hill Road</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Side Panel -->
+<div class="space-y-6">
+<!-- Quick Stats -->
+<div class="bg-slate-800 rounded-xl p-6">
+<h3 class="text-lg font-semibold mb-4">System Status</h3>
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<span class="text-slate-300">Active Incidents</span>
+<span class="text-red-400 font-semibold">7</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-slate-300">Available Resources</span>
+<span class="text-green-400 font-semibold">23</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-slate-300">Response Time</span>
+<span class="text-yellow-400 font-semibold">4.2 min</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-slate-300">Alerts Sent</span>
+<span class="text-blue-400 font-semibold">1,247</span>
+</div>
+</div>
+</div>
+<!-- Recent Incidents -->
+<div class="bg-slate-800 rounded-xl p-6">
+<h3 class="text-lg font-semibold mb-4">Recent Incidents</h3>
+<div class="space-y-3">
+<div class="border-l-4 border-red-500 pl-4">
+<div class="text-sm font-medium">Flash Flood Alert</div>
+<div class="text-xs text-slate-400">Riverside District - 2 min ago</div>
+<div class="text-xs text-red-400">Critical Priority</div>
+</div>
+<div class="border-l-4 border-orange-500 pl-4">
+<div class="text-sm font-medium">Landslide Warning</div>
+<div class="text-xs text-slate-400">Mountain View Area - 8 min ago</div>
+<div class="text-xs text-orange-400">High Priority</div>
+</div>
+<div class="border-l-4 border-yellow-500 pl-4">
+<div class="text-sm font-medium">Road Blockage</div>
+<div class="text-xs text-slate-400">Highway 101 - 15 min ago</div>
+<div class="text-xs text-yellow-400">Medium Priority</div>
+</div>
+</div>
+</div>
+<!-- Weather Alert -->
+<div class="bg-gradient-to-r from-red-600 to-red-700 rounded-xl p-6">
+<div class="flex items-center space-x-3 mb-3">
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-cloud-rain-line text-white text-xl"></i>
+</div>
+<div>
+<div class="font-semibold">Heavy Rain Alert</div>
+<div class="text-xs text-red-100">Next 6 hours</div>
+</div>
+</div>
+<p class="text-sm text-red-100">Moderate to heavy rainfall expected. Flood risk elevated in low-lying areas.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Resource Management -->
+<section class="px-6 py-8">
+<div class="bg-slate-800 rounded-xl p-6">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-xl font-semibold">Resource Allocation & Dispatch</h3>
+<button class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg font-medium !rounded-button whitespace-nowrap">
+<i class="ri-add-line mr-2"></i>Deploy Resource
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+<div class="bg-slate-700 rounded-lg p-4">
+<div class="flex items-center justify-between mb-3">
+<div class="w-10 h-10 bg-red-600 rounded-lg flex items-center justify-center">
+<i class="ri-truck-line text-white"></i>
+</div>
+<span class="text-green-400 text-sm font-medium">Available</span>
+</div>
+<div class="text-lg font-semibold mb-1">Rescue Trucks</div>
+<div class="text-2xl font-bold text-green-400">8/12</div>
+<div class="text-xs text-slate-400 mt-2">4 units deployed</div>
+</div>
+<div class="bg-slate-700 rounded-lg p-4">
+<div class="flex items-center justify-between mb-3">
+<div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+<i class="ri-ship-line text-white"></i>
+</div>
+<span class="text-yellow-400 text-sm font-medium">Limited</span>
+</div>
+<div class="text-lg font-semibold mb-1">Rescue Boats</div>
+<div class="text-2xl font-bold text-yellow-400">2/6</div>
+<div class="text-xs text-slate-400 mt-2">4 units deployed</div>
+</div>
+<div class="bg-slate-700 rounded-lg p-4">
+<div class="flex items-center justify-between mb-3">
+<div class="w-10 h-10 bg-green-600 rounded-lg flex items-center justify-center">
+<i class="ri-ambulance-line text-white"></i>
+</div>
+<span class="text-green-400 text-sm font-medium">Available</span>
+</div>
+<div class="text-lg font-semibold mb-1">Ambulances</div>
+<div class="text-2xl font-bold text-green-400">15/18</div>
+<div class="text-xs text-slate-400 mt-2">3 units deployed</div>
+</div>
+<div class="bg-slate-700 rounded-lg p-4">
+<div class="flex items-center justify-between mb-3">
+<div class="w-10 h-10 bg-purple-600 rounded-lg flex items-center justify-center">
+<i class="ri-flight-takeoff-line text-white"></i>
+</div>
+<span class="text-green-400 text-sm font-medium">Ready</span>
+</div>
+<div class="text-lg font-semibold mb-1">Helicopters</div>
+<div class="text-2xl font-bold text-green-400">3/4</div>
+<div class="text-xs text-slate-400 mt-2">1 unit deployed</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Communication Center -->
+<section class="px-6 py-8">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+<div class="bg-slate-800 rounded-xl p-6">
+<h3 class="text-xl font-semibold mb-6">Alert Broadcasting</h3>
+<div class="space-y-4">
+<div>
+<label class="block text-sm font-medium text-slate-300 mb-2">Alert Type</label>
+<div class="relative">
+<button class="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-3 text-left flex items-center justify-between hover:bg-slate-600 transition-colors !rounded-button whitespace-nowrap">
+<span>Emergency Evacuation</span>
+<i class="ri-arrow-down-s-line text-slate-400"></i>
+</button>
+</div>
+</div>
+<div>
+<label class="block text-sm font-medium text-slate-300 mb-2">Target Area</label>
+<div class="relative">
+<button class="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-3 text-left flex items-center justify-between hover:bg-slate-600 transition-colors !rounded-button whitespace-nowrap">
+<span>Riverside District (5km radius)</span>
+<i class="ri-arrow-down-s-line text-slate-400"></i>
+</button>
+</div>
+</div>
+<div>
+<label class="block text-sm font-medium text-slate-300 mb-2">Message</label>
+<textarea class="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-3 text-sm resize-none" rows="4" placeholder="Enter emergency alert message...">URGENT: Flash flood warning for Riverside District. Evacuate immediately to higher ground. Follow designated evacuation routes. Emergency shelters available at Community Center and High School.</textarea>
+</div>
+<div class="flex space-x-3">
+<button class="flex-1 bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg font-semibold !rounded-button whitespace-nowrap">
+<i class="ri-alarm-warning-line mr-2"></i>Send Alert
+</button>
+<button class="px-6 bg-slate-700 hover:bg-slate-600 text-white py-3 rounded-lg !rounded-button whitespace-nowrap">
+<i class="ri-save-line"></i>
+</button>
+</div>
+</div>
+</div>
+<div class="bg-slate-800 rounded-xl p-6">
+<h3 class="text-xl font-semibold mb-6">Analytics Dashboard</h3>
+<div class="grid grid-cols-2 gap-4">
+<div class="h-64" id="resourceChart"></div>
+<div class="h-64" id="utilizationChart"></div>
+</div>
+<div class="grid grid-cols-2 gap-4 mt-4">
+<div class="h-64" id="trendChart"></div>
+<div class="h-64" id="heatmapChart"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Features Section -->
+<section class="px-6 py-16">
+<div class="text-center mb-12">
+<h2 class="text-3xl font-bold mb-4">Comprehensive Disaster Management Features</h2>
+<p class="text-xl text-slate-300 max-w-3xl mx-auto">From prediction to recovery, our AI-powered platform provides end-to-end disaster management capabilities for modern emergency response teams.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<div class="bg-slate-800 rounded-xl p-8 text-center">
+<div class="w-16 h-16 bg-blue-600 rounded-xl flex items-center justify-center mx-auto mb-6">
+<i class="ri-brain-line text-white text-2xl"></i>
+</div>
+<h3 class="text-xl font-semibold mb-4">AI Risk Prediction</h3>
+<p class="text-slate-300 leading-relaxed">Advanced machine learning algorithms analyze weather patterns, historical data, and geographical factors to predict disaster risks with 95% accuracy.</p>
+</div>
+<div class="bg-slate-800 rounded-xl p-8 text-center">
+<div class="w-16 h-16 bg-red-600 rounded-xl flex items-center justify-center mx-auto mb-6">
+<i class="ri-radar-line text-white text-2xl"></i>
+</div>
+<h3 class="text-xl font-semibold mb-4">Real-Time Detection</h3>
+<p class="text-slate-300 leading-relaxed">Integrate multiple data sources including satellite imagery, IoT sensors, and citizen reports for immediate incident detection and verification.</p>
+</div>
+<div class="bg-slate-800 rounded-xl p-8 text-center">
+<div class="w-16 h-16 bg-green-600 rounded-xl flex items-center justify-center mx-auto mb-6">
+<i class="ri-route-line text-white text-2xl"></i>
+</div>
+<h3 class="text-xl font-semibold mb-4">Smart Resource Allocation</h3>
+<p class="text-slate-300 leading-relaxed">AI-optimized resource deployment considering traffic conditions, vehicle capacity, and incident severity for maximum efficiency.</p>
+</div>
+<div class="bg-slate-800 rounded-xl p-8 text-center">
+<div class="w-16 h-16 bg-purple-600 rounded-xl flex items-center justify-center mx-auto mb-6">
+<i class="ri-notification-2-line text-white text-2xl"></i>
+</div>
+<h3 class="text-xl font-semibold mb-4">Multi-Channel Alerts</h3>
+<p class="text-slate-300 leading-relaxed">Broadcast emergency alerts via SMS, mobile apps, sirens, and social media in multiple languages with location-based targeting.</p>
+</div>
+<div class="bg-slate-800 rounded-xl p-8 text-center">
+<div class="w-16 h-16 bg-orange-600 rounded-xl flex items-center justify-center mx-auto mb-6">
+<i class="ri-smartphone-line text-white text-2xl"></i>
+</div>
+<h3 class="text-xl font-semibold mb-4">Citizen App Integration</h3>
+<p class="text-slate-300 leading-relaxed">Mobile application for citizens to report incidents, receive alerts, locate shelters, and access emergency services with offline capabilities.</p>
+</div>
+<div class="bg-slate-800 rounded-xl p-8 text-center">
+<div class="w-16 h-16 bg-teal-600 rounded-xl flex items-center justify-center mx-auto mb-6">
+<i class="ri-global-line text-white text-2xl"></i>
+</div>
+<h3 class="text-xl font-semibold mb-4">Scalable Architecture</h3>
+<p class="text-slate-300 leading-relaxed">Cloud-based infrastructure that scales from district to national level with integration capabilities for IMD, ISRO, and international disaster networks.</p>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-slate-800 border-t border-slate-700 px-6 py-12">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+<div>
+<div class="flex items-center space-x-3 mb-6">
+<div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+<i class="ri-shield-check-fill text-white text-xl"></i>
+</div>
+<h3 class="text-xl font-bold">SARAL</h3>
+</div>
+<p class="text-slate-400 leading-relaxed">Empowering communities with AI-driven disaster management solutions for a safer, more resilient future.</p>
+</div>
+<div>
+<h4 class="font-semibold mb-4">Platform</h4>
+<ul class="space-y-2 text-slate-400">
+<li><a href="#" class="hover:text-white transition-colors">Risk Assessment</a></li>
+<li><a href="#" class="hover:text-white transition-colors">Incident Management</a></li>
+<li><a href="#" class="hover:text-white transition-colors">Resource Allocation</a></li>
+<li><a href="#" class="hover:text-white transition-colors">Alert System</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-semibold mb-4">Resources</h4>
+<ul class="space-y-2 text-slate-400">
+<li><a href="#" class="hover:text-white transition-colors">Documentation</a></li>
+<li><a href="#" class="hover:text-white transition-colors">API Reference</a></li>
+<li><a href="#" class="hover:text-white transition-colors">Training Materials</a></li>
+<li><a href="#" class="hover:text-white transition-colors">Best Practices</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-semibold mb-4">Contact</h4>
+<ul class="space-y-2 text-slate-400">
+<li class="flex items-center space-x-2">
+<i class="ri-phone-line"></i>
+<span>+91-1800208333</span>
+</li>
+<li class="flex items-center space-x-2">
+<i class="ri-mail-line"></i>
+<span>emergency@saral.gov</span>
+</li>
+<li class="flex items-center space-x-2">
+<i class="ri-map-pin-line"></i>
+<span>Manipal University Jaipur, Dehmi Kalan, Near GVK Toll Plaza, Jaipur-Ajmer Expressway, Jaipur, Rajasthan 303007</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="border-t border-slate-700 mt-8 pt-8 flex items-center justify-between">
+<p class="text-slate-400">&copy; 2025 DisasterAI. All rights reserved. Built for emergency response excellence.</p>
+<div class="flex items-center space-x-4">
+<div class="flex items-center space-x-2 text-green-400">
+<div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+<span class="text-sm">System Operational</span>
+</div>
+</div>
+</div>
+</footer>
+<script id="chart-initialization">
+document.addEventListener('DOMContentLoaded', function() {
+try {
+const chartCommonConfig = {
+animation: false,
+tooltip: {
+backgroundColor: 'rgba(255, 255, 255, 0.9)',
+textStyle: { color: '#1f2937' }
+},
+textStyle: { color: '#94a3b8' }
+};
+if(document.getElementById('resourceChart')) {
+const resourceChart = echarts.init(document.getElementById('resourceChart'));
+resourceChart.setOption({
+...chartCommonConfig,
+title: { text: 'Incidents vs Resources', textStyle: { color: '#fff', fontSize: 14 }, left: 'center' },
+tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+legend: { data: ['Incidents', 'Available Resources'], textStyle: { color: '#94a3b8' }, bottom: 0 },
+grid: { top: 40, right: 20, bottom: 80, left: 40 },
+xAxis: {
+type: 'category',
+data: ['Rescue\nTrucks', 'Rescue\nBoats', 'Ambulances', 'Helicopters', 'Relief\nCenters'],
+axisLabel: {
+color: '#94a3b8',
+interval: 0,
+rotate: 0,
+fontSize: 12,
+lineHeight: 14
+}
+},
+yAxis: { type: 'value', axisLabel: { color: '#94a3b8' } },
+series: [
+{
+name: 'Incidents',
+type: 'bar',
+data: [18, 12, 24, 8, 15],
+itemStyle: { color: 'rgba(252, 141, 98, 1)' },
+label: {
+show: true,
+position: 'top',
+color: '#fff'
+}
+},
+{
+name: 'Available Resources',
+type: 'bar',
+data: [12, 6, 18, 4, 10],
+itemStyle: { color: 'rgba(141, 211, 199, 1)' },
+label: {
+show: true,
+position: 'top',
+color: '#fff'
+}
+}
+]
+});
+const utilizationChart = echarts.init(document.getElementById('utilizationChart'));
+utilizationChart.setOption({
+...chartCommonConfig,
+title: { text: 'Resource Utilization Status', textStyle: { color: '#fff', fontSize: 14 }, left: 'center' },
+tooltip: { trigger: 'item', formatter: '{b}: {c}% ({d}%)' },
+legend: {
+orient: 'horizontal',
+bottom: 0,
+left: 'center',
+textStyle: { color: '#94a3b8' },
+itemGap: 20
+},
+series: [{
+name: 'Utilization',
+type: 'pie',
+radius: ['50%', '70%'],
+avoidLabelOverlap: false,
+itemStyle: {
+borderRadius: 10,
+borderColor: '#1f2937',
+borderWidth: 2
+},
+label: {
+show: true,
+position: 'inside',
+formatter: '{c}%',
+fontSize: 14,
+color: '#fff',
+fontWeight: 'bold'
+},
+emphasis: {
+label: {
+show: true,
+fontSize: 16,
+fontWeight: 'bold'
+}
+},
+data: [
+{ value: 75, name: 'Deployed', itemStyle: { color: 'rgba(252, 141, 98, 1)' } },
+{ value: 25, name: 'Available', itemStyle: { color: 'rgba(141, 211, 199, 1)' } }
+]
+}]
+});
+const trendChart = echarts.init(document.getElementById('trendChart'));
+trendChart.setOption({
+...chartCommonConfig,
+title: { text: 'Incident Trends', textStyle: { color: '#fff', fontSize: 14 }, left: 'center' },
+tooltip: { trigger: 'axis' },
+grid: { top: 40, right: 20, bottom: 40, left: 40 },
+xAxis: {
+type: 'category',
+data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+axisLabel: { color: '#94a3b8' }
+},
+yAxis: { type: 'value', axisLabel: { color: '#94a3b8' } },
+series: [{
+name: 'Incidents',
+type: 'line',
+smooth: true,
+data: [15, 18, 12, 20, 16, 22, 14],
+lineStyle: { color: 'rgba(251, 191, 114, 1)', width: 3 },
+areaStyle: {
+color: {
+type: 'linear',
+x: 0, y: 0, x2: 0, y2: 1,
+colorStops: [
+{ offset: 0, color: 'rgba(251, 191, 114, 0.3)' },
+{ offset: 1, color: 'rgba(251, 191, 114, 0.05)' }
+]
+}
+},
+showSymbol: false
+}]
+});
+const heatmapChart = echarts.init(document.getElementById('heatmapChart'));
+heatmapChart.setOption({
+...chartCommonConfig,
+title: { text: 'Disaster Coverage Map', textStyle: { color: '#fff', fontSize: 14 }, left: 'center' },
+tooltip: { trigger: 'item' },
+visualMap: {
+show: false,
+min: 0,
+max: 100,
+inRange: {
+color: ['rgba(141, 211, 199, 0.3)', 'rgba(251, 191, 114, 1)', 'rgba(252, 141, 98, 1)']
+}
+},
+series: [{
+type: 'map',
+map: 'india',
+roam: false,
+label: {
+show: true,
+color: '#fff',
+fontSize: 8
+},
+itemStyle: {
+areaColor: 'rgba(141, 211, 199, 0.3)',
+borderColor: '#fff',
+borderWidth: 0.5
+},
+emphasis: {
+label: { color: '#fff' },
+itemStyle: {
+areaColor: 'rgba(251, 191, 114, 1)'
+}
+},
+data: [
+{ name: 'Rajasthan', value: 85 },
+{ name: 'Gujarat', value: 70 },
+{ name: 'Maharashtra', value: 60 },
+{ name: 'Kerala', value: 90 },
+{ name: 'Tamil Nadu', value: 45 }
+]
+}]
+});
+window.addEventListener('resize', function() {
+if(resourceChart) resourceChart.resize();
+if(utilizationChart) utilizationChart.resize();
+if(trendChart) trendChart.resize();
+if(heatmapChart) heatmapChart.resize();
+});
+}
+} catch(error) {
+console.error('Chart initialization error:', error);
+}
+});
+</script>
+<script id="interactive-elements">
+document.addEventListener('DOMContentLoaded', function() {
+const navLinks = document.querySelectorAll('.nav-link');
+const mainDashboard = document.getElementById('main-dashboard');
+navLinks.forEach(link => {
+link.addEventListener('click', function(e) {
+if (this.getAttribute('href') === '#main-dashboard') {
+e.preventDefault();
+mainDashboard.scrollIntoView({ behavior: 'smooth' });
+navLinks.forEach(navLink => {
+navLink.classList.remove('active');
+navLink.classList.remove('text-white');
+navLink.classList.add('text-slate-300');
+});
+this.classList.add('active');
+this.classList.add('text-white');
+this.classList.remove('text-slate-300');
+mainDashboard.classList.add('highlight-section');
+setTimeout(() => {
+mainDashboard.classList.remove('highlight-section');
+}, 1000);
+}
+});
+});
+const alertButtons = document.querySelectorAll('button[class*="bg-red-600"]');
+alertButtons.forEach(button => {
+button.addEventListener('click', function() {
+this.innerHTML = '<i class="ri-check-line mr-2"></i>Alert Sent';
+this.classList.remove('bg-red-600', 'hover:bg-red-700');
+this.classList.add('bg-green-600');
+setTimeout(() => {
+this.innerHTML = '<i class="ri-alarm-warning-line mr-2"></i>Send Alert';
+this.classList.remove('bg-green-600');
+this.classList.add('bg-red-600', 'hover:bg-red-700');
+}, 3000);
+});
+});
+});
+</script>
+<script id="notification-system">
+document.addEventListener('DOMContentLoaded', function() {
+const notificationIcon = document.querySelector('.ri-notification-3-line');
+if(!notificationIcon) return;
+const notificationButton = notificationIcon.parentElement;
+let notificationCount = 3;
+function updateNotificationBadge() {
+const existingBadge = notificationButton.querySelector('.notification-badge');
+if (existingBadge) existingBadge.remove();
+if (notificationCount > 0) {
+const badge = document.createElement('div');
+badge.className = 'notification-badge absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-xs font-bold';
+badge.textContent = notificationCount > 9 ? '9+' : notificationCount;
+notificationButton.style.position = 'relative';
+notificationButton.appendChild(badge);
+}
+}
+updateNotificationBadge();
+notificationButton.addEventListener('click', function() {
+notificationCount = 0;
+updateNotificationBadge();
+});
+});
+</script>
+<script>
+    !function (t, e) { var o, n, p, r; e.__SV || (window.posthog = e, e._i = [], e.init = function (i, s, a) { function g(t, e) { var o = e.split("."); 2 == o.length && (t = t[o[0]], e = o[1]), t[e] = function () { t.push([e].concat(Array.prototype.slice.call(arguments, 0))) } } (p = t.createElement("script")).type = "text/javascript", p.crossOrigin = "anonymous", p.async = !0, p.src = s.api_host.replace(".i.posthog.com", "-assets.i.posthog.com") + "/static/array.js", (r = t.getElementsByTagName("script")[0]).parentNode.insertBefore(p, r); var u = e; for (void 0 !== a ? u = e[a] = [] : a = "posthog", u.people = u.people || [], u.toString = function (t) { var e = "posthog"; return "posthog" !== a && (e += "." + a), t || (e += " (stub)"), e }, u.people.toString = function () { return u.toString(1) + ".people (stub)" }, o = "init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "), n = 0; n < o.length; n++)g(u, o[n]); e._i.push([i, s, a]) }, e.__SV = 1) }(document, window.posthog || []);
+    posthog.init('phc_t9tkQZJiyi2ps9zUYm8TDsL6qXo4YmZx0Ot5rBlAlEd', {
+        api_host: 'https://us.i.posthog.com',
+        autocapture: false,
+        capture_pageview: false,
+        capture_pageleave: false,
+        capture_performance: {
+            web_vitals: false,
+        },
+        rageclick: false,
+    })
+    window.shareKey = '0LMYLUqHcwLBKv5daTAHMA';
+    window.host = 'readdy.ai';
+</script>
+<script src="https://static.readdy.ai/static/share.js"></script></body>
+</html>
