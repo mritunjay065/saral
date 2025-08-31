@@ -1,3136 +1,1568 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>SARAL - AI-Driven Emergency Response System</title>
-
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
-
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
-
 <style>
-
 :root {
-
-  --primary-color: #3b82f6;
-
-  --secondary-color: #1e40af;
-
-  --dark-bg: #0f172a;
-
-  --card-bg: #1e293b;
-
-  --border-color: #334155;
-
+  --primary-color: #3b82f6;
+  --secondary-color: #1e40af;
+  --dark-bg: #0f172a;
+  --card-bg: #1e293b;
+  --border-color: #334155;
 }
-
-
 
 * {
-
-  margin: 0;
-
-  padding: 0;
-
-  box-sizing: border-box;
-
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-
-
 
 body {
-
-  font-family: 'Inter', sans-serif;
-
-  background-color: var(--dark-bg);
-
-  color: #fff;
-
-  overflow-x: hidden;
-
+  font-family: 'Inter', sans-serif;
+  background-color: var(--dark-bg);
+  color: #fff;
+  overflow-x: hidden;
 }
-
-
 
 /* Animated Background */
-
 .animated-bg {
-
-  position: fixed;
-
-  top: 0;
-
-  left: 0;
-
-  width: 100%;
-
-  height: 100%;
-
-  z-index: -1;
-
-  background: linear-gradient(45deg, #0f172a, #1e293b, #334155);
-
-  background-size: 400% 400%;
-
-  animation: gradientShift 15s ease infinite;
-
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: linear-gradient(45deg, #0f172a, #1e293b, #334155);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
 }
-
-
 
 @keyframes gradientShift {
-
-  0% { background-position: 0% 50%; }
-
-  50% { background-position: 100% 50%; }
-
-  100% { background-position: 0% 50%; }
-
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
-
-
 
 /* Floating Elements Animation */
-
 .floating-elements {
-
-  position: fixed;
-
-  top: 0;
-
-  left: 0;
-
-  width: 100%;
-
-  height: 100%;
-
-  z-index: -1;
-
-  pointer-events: none;
-
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
 }
-
-
 
 .floating-element {
-
-  position: absolute;
-
-  opacity: 0.1;
-
-  animation: float 20s infinite linear;
-
+  position: absolute;
+  opacity: 0.1;
+  animation: float 20s infinite linear;
 }
-
-
 
 @keyframes float {
-
-  from { transform: translateY(100vh) rotate(0deg); }
-
-  to { transform: translateY(-100px) rotate(360deg); }
-
+  from { transform: translateY(100vh) rotate(0deg); }
+  to { transform: translateY(-100px) rotate(360deg); }
 }
-
-
 
 /* Header Animations */
-
 .navbar {
-
-  background: rgba(30, 41, 59, 0.95);
-
-  backdrop-filter: blur(10px);
-
-  border-bottom: 1px solid var(--border-color);
-
-  transition: all 0.3s ease;
-
+  background: rgba(30, 41, 59, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-color);
+  transition: all 0.3s ease;
 }
-
-
 
 .navbar-brand {
-
-  animation: logoGlow 2s ease-in-out infinite alternate;
-
+  animation: logoGlow 2s ease-in-out infinite alternate;
 }
-
-
 
 @keyframes logoGlow {
-
-  from { text-shadow: 0 0 5px var(--primary-color); }
-
-  to { text-shadow: 0 0 20px var(--primary-color), 0 0 30px var(--primary-color); }
-
+  from { text-shadow: 0 0 5px var(--primary-color); }
+  to { text-shadow: 0 0 20px var(--primary-color), 0 0 30px var(--primary-color); }
 }
-
-
 
 /* Hero Section */
-
 .hero-section {
-
-  position: relative;
-
-  min-height: 100vh;
-
-  background: linear-gradient(135deg, #1a365d 0%, #2563eb 50%, #1e40af 100%);
-
-  display: flex;
-
-  align-items: center;
-
-  overflow: hidden;
-
+  position: relative;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a365d 0%, #2563eb 50%, #1e40af 100%);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
 }
-
-
 
 .hero-bg-overlay {
-
-  position: absolute;
-
-  top: 0;
-
-  left: 0;
-
-  width: 100%;
-
-  height: 100%;
-
-  background-image: url('https://images.unsplash.com/photo-1559827260-dc66d52bef19?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
-
-  background-size: cover;
-
-  background-position: center;
-
-  opacity: 0.3;
-
-  animation: heroBackgroundShift 30s ease-in-out infinite alternate;
-
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('https://images.unsplash.com/photo-1559827260-dc66d52bef19?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.3;
+  animation: heroBackgroundShift 30s ease-in-out infinite alternate;
 }
-
-
 
 @keyframes heroBackgroundShift {
-
-  from { transform: scale(1); opacity: 0.3; }
-
-  to { transform: scale(1.1); opacity: 0.2; }
-
+  from { transform: scale(1); opacity: 0.3; }
+  to { transform: scale(1.1); opacity: 0.2; }
 }
-
-
 
 .hero-content {
-
-  position: relative;
-
-  z-index: 2;
-
-  animation: slideInUp 1s ease-out;
-
+  position: relative;
+  z-index: 2;
+  animation: slideInUp 1s ease-out;
 }
-
-
 
 @keyframes slideInUp {
-
-  from { opacity: 0; transform: translateY(50px); }
-
-  to { opacity: 1; transform: translateY(0); }
-
+  from { opacity: 0; transform: translateY(50px); }
+  to { opacity: 1; transform: translateY(0); }
 }
-
-
 
 /* Card Animations */
-
 .card {
-
-  background: var(--card-bg);
-
-  border: 1px solid var(--border-color);
-
-  transition: all 0.3s ease;
-
-  animation: fadeInScale 0.6s ease-out;
-
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+  animation: fadeInScale 0.6s ease-out;
 }
-
-
 
 @keyframes fadeInScale {
-
-  from { opacity: 0; transform: scale(0.9); }
-
-  to { opacity: 1; transform: scale(1); }
-
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
 }
-
-
 
 .card:hover {
-
-  transform: translateY(-5px);
-
-  box-shadow: 0 20px 40px rgba(59, 130, 246, 0.15);
-
-  border-color: var(--primary-color);
-
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(59, 130, 246, 0.15);
+  border-color: var(--primary-color);
 }
-
-
 
 /* Button Animations */
-
 .btn {
-
-  transition: all 0.3s ease;
-
-  position: relative;
-
-  overflow: hidden;
-
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
-
-
 
 .btn::before {
-
-  content: '';
-
-  position: absolute;
-
-  top: 0;
-
-  left: -100%;
-
-  width: 100%;
-
-  height: 100%;
-
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-
-  transition: left 0.5s;
-
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
 }
-
-
 
 .btn:hover::before {
-
-  left: 100%;
-
+  left: 100%;
 }
-
-
 
 .btn-primary {
-
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-
-  border: none;
-
-  animation: buttonPulse 2s infinite;
-
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  border: none;
+  animation: buttonPulse 2s infinite;
 }
-
-
 
 @keyframes buttonPulse {
-
-  0%, 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); }
-
-  50% { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
-
+  0%, 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); }
+  50% { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
 }
-
-
 
 /* Status Indicators */
-
 .status-indicator {
-
-  animation: statusPulse 2s infinite;
-
+  animation: statusPulse 2s infinite;
 }
-
-
 
 @keyframes statusPulse {
-
-  0%, 100% { transform: scale(1); opacity: 1; }
-
-  50% { transform: scale(1.2); opacity: 0.7; }
-
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0.7; }
 }
-
-
 
 /* Alert Animations */
-
 .alert-card {
-
-  animation: slideInRight 0.5s ease-out;
-
-  border-left: 4px solid;
-
+  animation: slideInRight 0.5s ease-out;
+  border-left: 4px solid;
 }
-
-
 
 @keyframes slideInRight {
-
-  from { opacity: 0; transform: translateX(30px); }
-
-  to { opacity: 1; transform: translateX(0); }
-
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
 }
-
-
 
 /* Weather Widget Animation */
-
 .weather-widget {
-
-  background: linear-gradient(135deg, #ef4444, #dc2626);
-
-  animation: weatherGlow 3s ease-in-out infinite alternate;
-
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  animation: weatherGlow 3s ease-in-out infinite alternate;
 }
-
-
 
 @keyframes weatherGlow {
-
-  from { box-shadow: 0 0 20px rgba(239, 68, 68, 0.5); }
-
-  to { box-shadow: 0 0 40px rgba(239, 68, 68, 0.8); }
-
+  from { box-shadow: 0 0 20px rgba(239, 68, 68, 0.5); }
+  to { box-shadow: 0 0 40px rgba(239, 68, 68, 0.8); }
 }
-
-
 
 /* Resource Cards */
-
 .resource-card {
-
-  transition: all 0.3s ease;
-
-  position: relative;
-
-  overflow: hidden;
-
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
-
-
 
 .resource-card::after {
-
-  content: '';
-
-  position: absolute;
-
-  top: 0;
-
-  left: 0;
-
-  width: 100%;
-
-  height: 100%;
-
-  background: linear-gradient(45deg, transparent 30%, rgba(59, 130, 246, 0.1) 50%, transparent 70%);
-
-  transform: translateX(-100%);
-
-  transition: transform 0.6s;
-
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, transparent 30%, rgba(59, 130, 246, 0.1) 50%, transparent 70%);
+  transform: translateX(-100%);
+  transition: transform 0.6s;
 }
-
-
 
 .resource-card:hover::after {
-
-  transform: translateX(100%);
-
+  transform: translateX(100%);
 }
-
-
 
 /* Map Container */
-
 .map-container {
-
-  background-image: url('https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
-
-  background-size: cover;
-
-  background-position: center;
-
-  position: relative;
-
-  border-radius: 12px;
-
-  overflow: hidden;
-
-  animation: mapReveal 1.5s ease-out;
-
+  background-image: url('https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  animation: mapReveal 1.5s ease-out;
 }
-
-
 
 @keyframes mapReveal {
-
-  from { opacity: 0; transform: scale(0.95); }
-
-  to { opacity: 1; transform: scale(1); }
-
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
 }
-
-
 
 /* Chart Animations */
-
 .chart-container {
-
-  animation: chartSlideIn 0.8s ease-out;
-
+  animation: chartSlideIn 0.8s ease-out;
 }
-
-
 
 @keyframes chartSlideIn {
-
-  from { opacity: 0; transform: translateY(20px); }
-
-  to { opacity: 1; transform: translateY(0); }
-
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
-
-
 
 /* Feature Cards */
-
 .feature-card {
-
-  transition: all 0.4s ease;
-
-  position: relative;
-
-  overflow: hidden;
-
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
 }
-
-
 
 .feature-card::before {
-
-  content: '';
-
-  position: absolute;
-
-  top: -50%;
-
-  left: -50%;
-
-  width: 200%;
-
-  height: 200%;
-
-  background: conic-gradient(from 0deg at 50% 50%, transparent 0deg, rgba(59, 130, 246, 0.1) 60deg, transparent 120deg);
-
-  animation: featureRotate 8s linear infinite;
-
-  opacity: 0;
-
-  transition: opacity 0.3s ease;
-
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(from 0deg at 50% 50%, transparent 0deg, rgba(59, 130, 246, 0.1) 60deg, transparent 120deg);
+  animation: featureRotate 8s linear infinite;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
-
-
 
 .feature-card:hover::before {
-
-  opacity: 1;
-
+  opacity: 1;
 }
-
-
 
 @keyframes featureRotate {
-
-  from { transform: rotate(0deg); }
-
-  to { transform: rotate(360deg); }
-
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
-
-
 
 /* Loading Animation */
-
 .loading-spinner {
-
-  display: inline-block;
-
-  width: 20px;
-
-  height: 20px;
-
-  border: 2px solid rgba(255,255,255,0.3);
-
-  border-radius: 50%;
-
-  border-top-color: #fff;
-
-  animation: spin 1s ease-in-out infinite;
-
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 1s ease-in-out infinite;
 }
-
-
 
 @keyframes spin {
-
-  to { transform: rotate(360deg); }
-
+  to { transform: rotate(360deg); }
 }
-
-
 
 /* Notification Badge Animation */
-
 .notification-badge {
-
-  animation: badgeBounce 2s infinite;
-
+  animation: badgeBounce 2s infinite;
 }
-
-
 
 @keyframes badgeBounce {
-
-  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-
-  40% { transform: translateY(-10px); }
-
-  60% { transform: translateY(-5px); }
-
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-10px); }
+  60% { transform: translateY(-5px); }
 }
-
-
 
 /* Responsive Design */
-
 @media (max-width: 768px) {
-
-  .hero-section h1 { font-size: 2.5rem; }
-
-  .hero-section p { font-size: 1.1rem; }
-
+  .hero-section h1 { font-size: 2.5rem; }
+  .hero-section p { font-size: 1.1rem; }
 }
-
-
 
 /* Scroll Animations */
-
 .scroll-animate {
-
-  opacity: 0;
-
-  transform: translateY(30px);
-
-  transition: all 0.6s ease;
-
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease;
 }
-
-
 
 .scroll-animate.visible {
-
-  opacity: 1;
-
-  transform: translateY(0);
-
+  opacity: 1;
+  transform: translateY(0);
 }
-
-
 
 /* Custom Scrollbar */
-
 ::-webkit-scrollbar {
-
-  width: 8px;
-
+  width: 8px;
 }
-
-
 
 ::-webkit-scrollbar-track {
-
-  background: var(--dark-bg);
-
+  background: var(--dark-bg);
 }
-
-
 
 ::-webkit-scrollbar-thumb {
-
-  background: var(--primary-color);
-
-  border-radius: 4px;
-
+  background: var(--primary-color);
+  border-radius: 4px;
 }
-
 </style>
-
 </head>
-
 <body>
-
 <!-- Animated Background -->
-
 <div class="animated-bg"></div>
-
 <div class="floating-elements">
-
-  <div class="floating-element" style="left: 10%; animation-delay: 0s; font-size: 24px;">🌪️</div>
-
-  <div class="floating-element" style="left: 20%; animation-delay: 3s; font-size: 20px;">⛈️</div>
-
-  <div class="floating-element" style="left: 30%; animation-delay: 6s; font-size: 28px;">🌊</div>
-
-  <div class="floating-element" style="left: 40%; animation-delay: 9s; font-size: 22px;">🔥</div>
-
-  <div class="floating-element" style="left: 50%; animation-delay: 12s; font-size: 26px;">🆘</div>
-
-  <div class="floating-element" style="left: 60%; animation-delay: 15s; font-size: 20px;">🚁</div>
-
-  <div class="floating-element" style="left: 70%; animation-delay: 18s; font-size: 24px;">🚒</div>
-
-  <div class="floating-element" style="left: 80%; animation-delay: 21s; font-size: 22px;">⚡</div>
-
-  <div class="floating-element" style="left: 90%; animation-delay: 24s; font-size: 26px;">🌪️</div>
-
+  <div class="floating-element" style="left: 10%; animation-delay: 0s; font-size: 24px;">🌪️</div>
+  <div class="floating-element" style="left: 20%; animation-delay: 3s; font-size: 20px;">⛈️</div>
+  <div class="floating-element" style="left: 30%; animation-delay: 6s; font-size: 28px;">🌊</div>
+  <div class="floating-element" style="left: 40%; animation-delay: 9s; font-size: 22px;">🔥</div>
+  <div class="floating-element" style="left: 50%; animation-delay: 12s; font-size: 26px;">🆘</div>
+  <div class="floating-element" style="left: 60%; animation-delay: 15s; font-size: 20px;">🚁</div>
+  <div class="floating-element" style="left: 70%; animation-delay: 18s; font-size: 24px;">🚒</div>
+  <div class="floating-element" style="left: 80%; animation-delay: 21s; font-size: 22px;">⚡</div>
+  <div class="floating-element" style="left: 90%; animation-delay: 24s; font-size: 26px;">🌪️</div>
 </div>
 
-
-
 <!-- Navigation -->
-
 <nav class="navbar navbar-expand-lg fixed-top">
-
-  <div class="container-fluid px-4">
-
-    <a class="navbar-brand d-flex align-items-center" href="#" style="color: #fff; text-decoration: none;">
-
-      <div class="me-3" style="width: 40px; height: 40px; background: var(--primary-color); border-radius: 8px; display: flex; align-items: center; justify-content: center;">
-
-        <i class="ri-shield-check-fill" style="font-size: 20px; color: white;"></i>
-
-      </div>
-
-      <span style="font-size: 24px; font-weight: 700;">SARAL</span>
-
-    </a>
-
-    
-
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" style="border: none;">
-
-      <span class="navbar-toggler-icon" style="background-image: url('data:image/svg+xml,%3csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 30 30\'%3e%3cpath stroke=\'rgba%28255, 255, 255, 0.75%29\' stroke-linecap=\'round\' stroke-miterlimit=\'10\' stroke-width=\'2\' d=\'M4 7h22M4 15h22M4 23h22\'/%3e%3c/svg%3e');"></span>
-
-    </button>
-
-    
-
-    <div class="collapse navbar-collapse" id="navbarNav">
-
-      <ul class="navbar-nav me-auto">
-
-        <li class="nav-item">
-
-          <a class="nav-link active" href="#dashboard" style="color: #fff; font-weight: 500;">Dashboard</a>
-
-        </li>
-
-        <li class="nav-item">
-
-          <a class="nav-link" href="#alerts" style="color: #94a3b8; font-weight: 500;">Alerts</a>
-
-        </li>
-
-        <li class="nav-item">
-
-          <a class="nav-link" href="#resources" style="color: #94a3b8; font-weight: 500;">Resources</a>
-
-        </li>
-
-        <li class="nav-item">
-
-          <a class="nav-link" href="#analytics" style="color: #94a3b8; font-weight: 500;">Analytics</a>
-
-        </li>
-
-      </ul>
-
-      
-
-      <div class="d-flex align-items-center">
-
-        <div class="me-3 text-end">
-
-          <div style="font-size: 14px; color: #94a3b8;">Aug 31, 2025 14:32 IST</div>
-
-          <div style="font-size: 12px; color: #94a3b8;">Weather: Heavy Rain</div>
-
-        </div>
-
-        <button class="btn btn-danger me-2 position-relative" style="width: 40px; height: 40px; border-radius: 8px;">
-
-          <i class="ri-alarm-warning-fill"></i>
-
-          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning notification-badge" style="font-size: 10px;">3</span>
-
-        </button>
-
-        <button class="btn me-2 position-relative" style="background-color: var(--card-bg); width: 40px; height: 40px; border-radius: 8px; color: #fff; border: 1px solid var(--border-color);">
-
-          <i class="ri-notification-3-line"></i>
-
-        </button>
-
-        <div style="width: 40px; height: 40px; background: var(--primary-color); border-radius: 8px; display: flex; align-items: center; justify-content: center;">
-
-          <i class="ri-user-line" style="color: white;"></i>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
+  <div class="container-fluid px-4">
+    <a class="navbar-brand d-flex align-items-center" href="#" style="color: #fff; text-decoration: none;">
+      <div class="me-3" style="width: 40px; height: 40px; background: var(--primary-color); border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+        <i class="ri-shield-check-fill" style="font-size: 20px; color: white;"></i>
+      </div>
+      <span style="font-size: 24px; font-weight: 700;">SARAL</span>
+    </a>
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" style="border: none;">
+      <span class="navbar-toggler-icon" style="background-image: url('data:image/svg+xml,%3csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 30 30\'%3e%3cpath stroke=\'rgba%28255, 255, 255, 0.75%29\' stroke-linecap=\'round\' stroke-miterlimit=\'10\' stroke-width=\'2\' d=\'M4 7h22M4 15h22M4 23h22\'/%3e%3c/svg%3e');"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link active" href="#dashboard" style="color: #fff; font-weight: 500;">Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#alerts" style="color: #94a3b8; font-weight: 500;">Alerts</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#resources" style="color: #94a3b8; font-weight: 500;">Resources</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#analytics" style="color: #94a3b8; font-weight: 500;">Analytics</a>
+        </li>
+      </ul>
+      
+      <div class="d-flex align-items-center">
+        <div class="me-3 text-end">
+          <div style="font-size: 14px; color: #94a3b8;">Aug 31, 2025 14:32 IST</div>
+          <div style="font-size: 12px; color: #94a3b8;">Weather: Heavy Rain</div>
+        </div>
+        <button class="btn btn-danger me-2 position-relative" style="width: 40px; height: 40px; border-radius: 8px;">
+          <i class="ri-alarm-warning-fill"></i>
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning notification-badge" style="font-size: 10px;">3</span>
+        </button>
+        <button class="btn me-2 position-relative" style="background-color: var(--card-bg); width: 40px; height: 40px; border-radius: 8px; color: #fff; border: 1px solid var(--border-color);">
+          <i class="ri-notification-3-line"></i>
+        </button>
+        <div style="width: 40px; height: 40px; background: var(--primary-color); border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+          <i class="ri-user-line" style="color: white;"></i>
+        </div>
+      </div>
+    </div>
+  </div>
 </nav>
 
-
-
 <!-- Hero Section -->
-
 <section class="hero-section">
-
-  <div class="hero-bg-overlay"></div>
-
-  <div class="container">
-
-    <div class="row">
-
-      <div class="col-lg-8">
-
-        <div class="hero-content">
-
-          <h1 class="display-2 fw-bold mb-4" style="line-height: 1.1;">Smart AI for Response, Allocation & Logistics</h1>
-
-          <p class="lead mb-5" style="font-size: 1.3rem; color: #e2e8f0;">
-
-            Predict risks, detect incidents, optimize resources, and coordinate emergency responses with our comprehensive disaster management platform powered by artificial intelligence.
-
-          </p>
-
-          <div class="d-flex gap-3 flex-wrap">
-
-            <button class="btn btn-primary btn-lg px-4" style="border-radius: 8px;">
-
-              <i class="ri-rocket-line me-2"></i>Launch Command Center
-
-            </button>
-
-            <button class="btn btn-outline-light btn-lg px-4" style="border-radius: 8px;">
-
-              <i class="ri-play-circle-line me-2"></i>View Demo
-
-            </button>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
+  <div class="hero-bg-overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="hero-content">
+          <h1 class="display-2 fw-bold mb-4" style="line-height: 1.1;">Smart AI for Response, Allocation & Logistics</h1>
+          <p class="lead mb-5" style="font-size: 1.3rem; color: #e2e8f0;">
+            Predict risks, detect incidents, optimize resources, and coordinate emergency responses with our comprehensive disaster management platform powered by artificial intelligence.
+          </p>
+          <div class="d-flex gap-3 flex-wrap">
+            <button class="btn btn-primary btn-lg px-4" style="border-radius: 8px;">
+              <i class="ri-rocket-line me-2"></i>Launch Command Center
+            </button>
+            <button class="btn btn-outline-light btn-lg px-4" style="border-radius: 8px;">
+              <i class="ri-play-circle-line me-2"></i>View Demo
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
-
-
 
 <!-- Main Dashboard -->
-
 <section id="dashboard" class="py-5" style="margin-top: -50px; position: relative; z-index: 3;">
-
-  <div class="container">
-
-    <div class="row g-4">
-
-      <!-- Interactive Map -->
-
-      <div class="col-lg-8">
-
-        <div class="card h-100">
-
-          <div class="card-header d-flex justify-content-between align-items-center" style="background: var(--card-bg); border-bottom: 1px solid var(--border-color);">
-
-            <h5 class="mb-0 fw-semibold">Risk Assessment & Incident Map</h5>
-
-            <div class="btn-group" role="group">
-
-              <button class="btn btn-primary btn-sm">Risk Zones</button>
-
-              <button class="btn btn-outline-light btn-sm">Incidents</button>
-
-              <button class="btn btn-outline-light btn-sm">Resources</button>
-
-            </div>
-
-          </div>
-
-          <div class="card-body">
-
-            <div class="map-container position-relative" style="height: 400px; border-radius: 8px; overflow: hidden;">
-
-              <div class="position-absolute top-0 start-0 m-3">
-
-                <div class="d-flex flex-column gap-2">
-
-                  <div class="d-flex align-items-center px-3 py-2 rounded" style="background: rgba(239, 68, 68, 0.9); font-size: 14px;">
-
-                    <div class="status-indicator me-2" style="width: 8px; height: 8px; background: #fca5a5; border-radius: 50%;"></div>
-
-                    High Risk Zone
-
-                  </div>
-
-                  <div class="d-flex align-items-center px-3 py-2 rounded" style="background: rgba(245, 158, 11, 0.9); font-size: 14px;">
-
-                    <div class="status-indicator me-2" style="width: 8px; height: 8px; background: #fbbf24; border-radius: 50%;"></div>
-
-                    Medium Risk Zone
-
-                  </div>
-
-                  <div class="d-flex align-items-center px-3 py-2 rounded" style="background: rgba(34, 197, 94, 0.9); font-size: 14px;">
-
-                    <div class="me-2" style="width: 8px; height: 8px; background: #4ade80; border-radius: 50%;"></div>
-
-                    Safe Zone
-
-                  </div>
-
-                </div>
-
-              </div>
-
-              
-
-              <div class="position-absolute top-0 end-0 m-3 p-3 rounded" style="background: rgba(30, 41, 59, 0.9);">
-
-                <div style="font-size: 14px; color: #94a3b8;" class="mb-2">Active Incidents</div>
-
-                <div class="d-flex flex-column gap-1">
-
-                  <div class="d-flex align-items-center" style="font-size: 13px;">
-
-                    <div class="me-2" style="width: 8px; height: 8px; background: #ef4444; border-radius: 50%;"></div>
-
-                    Flood - Sector 15
-
-                  </div>
-
-                  <div class="d-flex align-items-center" style="font-size: 13px;">
-
-                    <div class="me-2" style="width: 8px; height: 8px; background: #f97316; border-radius: 50%;"></div>
-
-                    Landslide - Hill Road
-
-                  </div>
-
-                </div>
-
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-      
-
-      <!-- Sidebar -->
-
-      <div class="col-lg-4">
-
-        <div class="d-flex flex-column gap-4">
-
-          <!-- System Status -->
-
-          <div class="card scroll-animate">
-
-            <div class="card-header" style="background: var(--card-bg); border-bottom: 1px solid var(--border-color);">
-
-              <h6 class="mb-0 fw-semibold">System Status</h6>
-
-            </div>
-
-            <div class="card-body">
-
-              <div class="d-flex flex-column gap-3">
-
-                <div class="d-flex justify-content-between align-items-center">
-
-                  <span style="color: #94a3b8;">Active Incidents</span>
-
-                  <span class="fw-bold" style="color: #ef4444;">7</span>
-
-                </div>
-
-                <div class="d-flex justify-content-between align-items-center">
-
-                  <span style="color: #94a3b8;">Available Resources</span>
-
-                  <span class="fw-bold" style="color: #22c55e;">23</span>
-
-                </div>
-
-                <div class="d-flex justify-content-between align-items-center">
-
-                  <span style="color: #94a3b8;">Response Time</span>
-
-                  <span class="fw-bold" style="color: #eab308;">4.2 min</span>
-
-                </div>
-
-                <div class="d-flex justify-content-between align-items-center">
-
-                  <span style="color: #94a3b8;">Alerts Sent</span>
-
-                  <span class="fw-bold" style="color: var(--primary-color);">1,247</span>
-
-                </div>
-
-              </div>
-
-            </div>
-
-          </div>
-
-          
-
-          <!-- Recent Incidents -->
-
-          <div class="card scroll-animate">
-
-            <div class="card-header" style="background: var(--card-bg); border-bottom: 1px solid var(--border-color);">
-
-              <h6 class="mb-0 fw-semibold">Recent Incidents</h6>
-
-            </div>
-
-            <div class="card-body">
-
-              <div class="d-flex flex-column gap-3">
-
-                <div class="alert-card" style="border-left-color: #ef4444; padding-left: 16px;">
-
-                  <div style="font-size: 14px; font-weight: 500;">Flash Flood Alert</div>
-
-                  <div style="font-size: 12px; color: #94a3b8;">Riverside District - 2 min ago</div>
-
-                  <div style="font-size: 12px; color: #ef4444;">Critical Priority</div>
-
-                </div>
-
-                <div class="alert-card" style="border-left-color: #f97316; padding-left: 16px;">
-
-                  <div style="font-size: 14px; font-weight: 500;">Landslide Warning</div>
-
-                  <div style="font-size: 12px; color: #94a3b8;">Mountain View Area - 8 min ago</div>
-
-                  <div style="font-size: 12px; color: #f97316;">High Priority</div>
-
-                </div>
-
-                <div class="alert-card" style="border-left-color: #eab308; padding-left: 16px;">
-
-                  <div style="font-size: 14px; font-weight: 500;">Road Blockage</div>
-
-                  <div style="font-size: 12px; color: #94a3b8;">Highway 101 - 15 min ago</div>
-
-                  <div style="font-size: 12px; color: #eab308;">Medium Priority</div>
-
-                </div>
-
-              </div>
-
-            </div>
-
-          </div>
-
-          
-
-          <!-- Weather Alert -->
-
-          <div class="card weather-widget scroll-animate">
-
-            <div class="card-body">
-
-              <div class="d-flex align-items-center mb-3">
-
-                <div class="me-3" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;">
-
-                  <i class="ri-cloud-rain-line" style="font-size: 20px; color: white;"></i>
-
-                </div>
-
-                <div>
-
-                  <div class="fw-semibold">Heavy Rain Alert</div>
-
-                  <div style="font-size: 12px; color: rgba(255,255,255,0.8);">Next 6 hours</div>
-
-                </div>
-
-              </div>
-
-              <p style="font-size: 14px; color: rgba(255,255,255,0.9); margin-bottom: 0;">
-
-                Moderate to heavy rainfall expected. Flood risk elevated in low-lying areas.
-
-              </p>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
+  <div class="container">
+    <div class="row g-4">
+      <!-- Interactive Map -->
+      <div class="col-lg-8">
+        <div class="card h-100">
+          <div class="card-header d-flex justify-content-between align-items-center" style="background: var(--card-bg); border-bottom: 1px solid var(--border-color);">
+            <h5 class="mb-0 fw-semibold">Risk Assessment & Incident Map</h5>
+            <div class="btn-group" role="group">
+              <button class="btn btn-primary btn-sm">Risk Zones</button>
+              <button class="btn btn-outline-light btn-sm">Incidents</button>
+              <button class="btn btn-outline-light btn-sm">Resources</button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="map-container position-relative" style="height: 400px; border-radius: 8px; overflow: hidden;">
+              <div class="position-absolute top-0 start-0 m-3">
+                <div class="d-flex flex-column gap-2">
+                  <div class="d-flex align-items-center px-3 py-2 rounded" style="background: rgba(239, 68, 68, 0.9); font-size: 14px;">
+                    <div class="status-indicator me-2" style="width: 8px; height: 8px; background: #fca5a5; border-radius: 50%;"></div>
+                    High Risk Zone
+                  </div>
+                  <div class="d-flex align-items-center px-3 py-2 rounded" style="background: rgba(245, 158, 11, 0.9); font-size: 14px;">
+                    <div class="status-indicator me-2" style="width: 8px; height: 8px; background: #fbbf24; border-radius: 50%;"></div>
+                    Medium Risk Zone
+                  </div>
+                  <div class="d-flex align-items-center px-3 py-2 rounded" style="background: rgba(34, 197, 94, 0.9); font-size: 14px;">
+                    <div class="me-2" style="width: 8px; height: 8px; background: #4ade80; border-radius: 50%;"></div>
+                    Safe Zone
+                  </div>
+                </div>
+              </div>
+              
+              <div class="position-absolute top-0 end-0 m-3 p-3 rounded" style="background: rgba(30, 41, 59, 0.9);">
+                <div style="font-size: 14px; color: #94a3b8;" class="mb-2">Active Incidents</div>
+                <div class="d-flex flex-column gap-1">
+                  <div class="d-flex align-items-center" style="font-size: 13px;">
+                    <div class="me-2" style="width: 8px; height: 8px; background: #ef4444; border-radius: 50%;"></div>
+                    Flood - Sector 15
+                  </div>
+                  <div class="d-flex align-items-center" style="font-size: 13px;">
+                    <div class="me-2" style="width: 8px; height: 8px; background: #f97316; border-radius: 50%;"></div>
+                    Landslide - Hill Road
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Sidebar -->
+      <div class="col-lg-4">
+        <div class="d-flex flex-column gap-4">
+          <!-- System Status -->
+          <div class="card scroll-animate">
+            <div class="card-header" style="background: var(--card-bg); border-bottom: 1px solid var(--border-color);">
+              <h6 class="mb-0 fw-semibold">System Status</h6>
+            </div>
+            <div class="card-body">
+              <div class="d-flex flex-column gap-3">
+                <div class="d-flex justify-content-between align-items-center">
+                  <span style="color: #94a3b8;">Active Incidents</span>
+                  <span class="fw-bold" style="color: #ef4444;">7</span>
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <span style="color: #94a3b8;">Available Resources</span>
+                  <span class="fw-bold" style="color: #22c55e;">23</span>
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <span style="color: #94a3b8;">Response Time</span>
+                  <span class="fw-bold" style="color: #eab308;">4.2 min</span>
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <span style="color: #94a3b8;">Alerts Sent</span>
+                  <span class="fw-bold" style="color: var(--primary-color);">1,247</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Recent Incidents -->
+          <div class="card scroll-animate">
+            <div class="card-header" style="background: var(--card-bg); border-bottom: 1px solid var(--border-color);">
+              <h6 class="mb-0 fw-semibold">Recent Incidents</h6>
+            </div>
+            <div class="card-body">
+              <div class="d-flex flex-column gap-3">
+                <div class="alert-card" style="border-left-color: #ef4444; padding-left: 16px;">
+                  <div style="font-size: 14px; font-weight: 500;">Flash Flood Alert</div>
+                  <div style="font-size: 12px; color: #94a3b8;">Riverside District - 2 min ago</div>
+                  <div style="font-size: 12px; color: #ef4444;">Critical Priority</div>
+                </div>
+                <div class="alert-card" style="border-left-color: #f97316; padding-left: 16px;">
+                  <div style="font-size: 14px; font-weight: 500;">Landslide Warning</div>
+                  <div style="font-size: 12px; color: #94a3b8;">Mountain View Area - 8 min ago</div>
+                  <div style="font-size: 12px; color: #f97316;">High Priority</div>
+                </div>
+                <div class="alert-card" style="border-left-color: #eab308; padding-left: 16px;">
+                  <div style="font-size: 14px; font-weight: 500;">Road Blockage</div>
+                  <div style="font-size: 12px; color: #94a3b8;">Highway 101 - 15 min ago</div>
+                  <div style="font-size: 12px; color: #eab308;">Medium Priority</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Weather Alert -->
+          <div class="card weather-widget scroll-animate">
+            <div class="card-body">
+              <div class="d-flex align-items-center mb-3">
+                <div class="me-3" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;">
+                  <i class="ri-cloud-rain-line" style="font-size: 20px; color: white;"></i>
+                </div>
+                <div>
+                  <div class="fw-semibold">Heavy Rain Alert</div>
+                  <div style="font-size: 12px; color: rgba(255,255,255,0.8);">Next 6 hours</div>
+                </div>
+              </div>
+              <p style="font-size: 14px; color: rgba(255,255,255,0.9); margin-bottom: 0;">
+                Moderate to heavy rainfall expected. Flood risk elevated in low-lying areas.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
-
-
 
 <!-- Resource Management -->
-
 <section id="resources" class="py-5">
-
-  <div class="container">
-
-    <div class="card">
-
-      <div class="card-header d-flex justify-content-between align-items-center" style="background: var(--card-bg); border-bottom: 1px solid var(--border-color);">
-
-        <h5 class="mb-0 fw-semibold">Resource Allocation & Dispatch</h5>
-
-        <button class="btn btn-success">
-
-          <i class="ri-add-line me-2"></i>Deploy Resource
-
-        </button>
-
-      </div>
-
-      <div class="card-body">
-
-        <div class="row g-4">
-
-          <div class="col-md-6 col-lg-3">
-
-            <div class="resource-card card h-100" style="background: #374151;">
-
-              <div class="card-body">
-
-                <div class="d-flex justify-content-between align-items-center mb-3">
-
-                  <div style="width: 40px; height: 40px; background: #7c3aed; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
-
-                    <i class="ri-flight-takeoff-line" style="color: white;"></i>
-
-                  </div>
-
-                  <span class="badge bg-success">Ready</span>
-
-                </div>
-
-                <h6 class="mb-2">Helicopters</h6>
-
-                <div class="display-6 fw-bold mb-2" style="color: #22c55e;">3/4</div>
-
-                <small style="color: #94a3b8;">1 unit deployed</small>
-
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
+  <div class="container">
+    <div class="card">
+      <div class="card-header d-flex justify-content-between align-items-center" style="background: var(--card-bg); border-bottom: 1px solid var(--border-color);">
+        <h5 class="mb-0 fw-semibold">Resource Allocation & Dispatch</h5>
+        <button class="btn btn-success">
+          <i class="ri-add-line me-2"></i>Deploy Resource
+        </button>
+      </div>
+      <div class="card-body">
+        <div class="row g-4">
+          <div class="col-md-6 col-lg-3">
+            <div class="resource-card card h-100" style="background: #374151;">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <div style="width: 40px; height: 40px; background: #7c3aed; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                    <i class="ri-flight-takeoff-line" style="color: white;"></i>
+                  </div>
+                  <span class="badge bg-success">Ready</span>
+                </div>
+                <h6 class="mb-2">Helicopters</h6>
+                <div class="display-6 fw-bold mb-2" style="color: #22c55e;">3/4</div>
+                <small style="color: #94a3b8;">1 unit deployed</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
-
-
 
 <!-- Communication Center -->
-
 <section id="alerts" class="py-5">
-
-  <div class="container">
-
-    <div class="row g-4">
-
-      <div class="col-lg-6">
-
-        <div class="card scroll-animate">
-
-          <div class="card-header" style="background: var(--card-bg); border-bottom: 1px solid var(--border-color);">
-
-            <h5 class="mb-0 fw-semibold">Alert Broadcasting</h5>
-
-          </div>
-
-          <div class="card-body">
-
-            <form>
-
-              <div class="mb-3">
-
-                <label class="form-label fw-medium" style="color: #94a3b8;">Alert Type</label>
-
-                <select class="form-select" style="background: #374151; border: 1px solid var(--border-color); color: #fff;">
-
-                  <option>Emergency Evacuation</option>
-
-                  <option>Weather Warning</option>
-
-                  <option>Medical Emergency</option>
-
-                  <option>Fire Alert</option>
-
-                </select>
-
-              </div>
-
-              
-
-              <div class="mb-3">
-
-                <label class="form-label fw-medium" style="color: #94a3b8;">Target Area</label>
-
-                <select class="form-select" style="background: #374151; border: 1px solid var(--border-color); color: #fff;">
-
-                  <option>Riverside District (5km radius)</option>
-
-                  <option>Mountain View Area (10km radius)</option>
-
-                  <option>City Center (3km radius)</option>
-
-                  <option>Industrial Zone (8km radius)</option>
-
-                </select>
-
-              </div>
-
-              
-
-              <div class="mb-4">
-
-                <label class="form-label fw-medium" style="color: #94a3b8;">Message</label>
-
-                <textarea class="form-control" rows="4" style="background: #374151; border: 1px solid var(--border-color); color: #fff;" placeholder="Enter emergency alert message...">URGENT: Flash flood warning for Riverside District. Evacuate immediately to higher ground. Follow designated evacuation routes. Emergency shelters available at Community Center and High School.</textarea>
-
-              </div>
-
-              
-
-              <div class="d-flex gap-2">
-
-                <button type="button" class="btn btn-danger flex-fill" id="sendAlertBtn">
-
-                  <i class="ri-alarm-warning-line me-2"></i>Send Alert
-
-                </button>
-
-                <button type="button" class="btn btn-outline-light">
-
-                  <i class="ri-save-line"></i>
-
-                </button>
-
-              </div>
-
-            </form>
-
-          </div>
-
-        </div>
-
-      </div>
-
-      
-
-      <div class="col-lg-6">
-
-        <div class="card scroll-animate">
-
-          <div class="card-header" style="background: var(--card-bg); border-bottom: 1px solid var(--border-color);">
-
-            <h5 class="mb-0 fw-semibold">Analytics Dashboard</h5>
-
-          </div>
-
-          <div class="card-body">
-
-            <div class="row g-3">
-
-              <div class="col-6">
-
-                <div class="chart-container" id="resourceChart" style="height: 150px;"></div>
-
-              </div>
-
-              <div class="col-6">
-
-                <div class="chart-container" id="utilizationChart" style="height: 150px;"></div>
-
-              </div>
-
-              <div class="col-6">
-
-                <div class="chart-container" id="trendChart" style="height: 150px;"></div>
-
-              </div>
-
-              <div class="col-6">
-
-                <div class="chart-container" id="responseChart" style="height: 150px;"></div>
-
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-6">
+        <div class="card scroll-animate">
+          <div class="card-header" style="background: var(--card-bg); border-bottom: 1px solid var(--border-color);">
+            <h5 class="mb-0 fw-semibold">Alert Broadcasting</h5>
+          </div>
+          <div class="card-body">
+            <form>
+              <div class="mb-3">
+                <label class="form-label fw-medium" style="color: #94a3b8;">Alert Type</label>
+                <select class="form-select" style="background: #374151; border: 1px solid var(--border-color); color: #fff;">
+                  <option>Emergency Evacuation</option>
+                  <option>Weather Warning</option>
+                  <option>Medical Emergency</option>
+                  <option>Fire Alert</option>
+                </select>
+              </div>
+              
+              <div class="mb-3">
+                <label class="form-label fw-medium" style="color: #94a3b8;">Target Area</label>
+                <select class="form-select" style="background: #374151; border: 1px solid var(--border-color); color: #fff;">
+                  <option>Riverside District (5km radius)</option>
+                  <option>Mountain View Area (10km radius)</option>
+                  <option>City Center (3km radius)</option>
+                  <option>Industrial Zone (8km radius)</option>
+                </select>
+              </div>
+              
+              <div class="mb-4">
+                <label class="form-label fw-medium" style="color: #94a3b8;">Message</label>
+                <textarea class="form-control" rows="4" style="background: #374151; border: 1px solid var(--border-color); color: #fff;" placeholder="Enter emergency alert message...">URGENT: Flash flood warning for Riverside District. Evacuate immediately to higher ground. Follow designated evacuation routes. Emergency shelters available at Community Center and High School.</textarea>
+              </div>
+              
+              <div class="d-flex gap-2">
+                <button type="button" class="btn btn-danger flex-fill" id="sendAlertBtn">
+                  <i class="ri-alarm-warning-line me-2"></i>Send Alert
+                </button>
+                <button type="button" class="btn btn-outline-light">
+                  <i class="ri-save-line"></i>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-6">
+        <div class="card scroll-animate">
+          <div class="card-header" style="background: var(--card-bg); border-bottom: 1px solid var(--border-color);">
+            <h5 class="mb-0 fw-semibold">Analytics Dashboard</h5>
+          </div>
+          <div class="card-body">
+            <div class="row g-3">
+              <div class="col-6">
+                <div class="chart-container" id="resourceChart" style="height: 150px;"></div>
+              </div>
+              <div class="col-6">
+                <div class="chart-container" id="utilizationChart" style="height: 150px;"></div>
+              </div>
+              <div class="col-6">
+                <div class="chart-container" id="trendChart" style="height: 150px;"></div>
+              </div>
+              <div class="col-6">
+                <div class="chart-container" id="responseChart" style="height: 150px;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
-
-
 
 <!-- Features Section -->
-
 <section id="analytics" class="py-5">
-
-  <div class="container">
-
-    <div class="text-center mb-5">
-
-      <h2 class="display-5 fw-bold mb-4">Comprehensive Disaster Management Features</h2>
-
-      <p class="lead mx-auto" style="max-width: 800px; color: #94a3b8;">
-
-        From prediction to recovery, our AI-powered platform provides end-to-end disaster management capabilities for modern emergency response teams.
-
-      </p>
-
-    </div>
-
-    
-
-    <div class="row g-4">
-
-      <div class="col-md-6 col-lg-4">
-
-        <div class="feature-card card h-100 text-center">
-
-          <div class="card-body p-4">
-
-            <div class="mx-auto mb-4" style="width: 64px; height: 64px; background: #2563eb; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
-
-              <i class="ri-brain-line" style="font-size: 28px; color: white;"></i>
-
-            </div>
-
-            <h5 class="fw-semibold mb-3">AI Risk Prediction</h5>
-
-            <p style="color: #94a3b8; line-height: 1.6;">
-
-              Advanced machine learning algorithms analyze weather patterns, historical data, and geographical factors to predict disaster risks with 95% accuracy.
-
-            </p>
-
-          </div>
-
-        </div>
-
-      </div>
-
-      
-
-      <div class="col-md-6 col-lg-4">
-
-        <div class="feature-card card h-100 text-center">
-
-          <div class="card-body p-4">
-
-            <div class="mx-auto mb-4" style="width: 64px; height: 64px; background: #dc2626; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
-
-              <i class="ri-radar-line" style="font-size: 28px; color: white;"></i>
-
-            </div>
-
-            <h5 class="fw-semibold mb-3">Real-Time Detection</h5>
-
-            <p style="color: #94a3b8; line-height: 1.6;">
-
-              Integrate multiple data sources including satellite imagery, IoT sensors, and citizen reports for immediate incident detection and verification.
-
-            </p>
-
-          </div>
-
-        </div>
-
-      </div>
-
-      
-
-      <div class="col-md-6 col-lg-4">
-
-        <div class="feature-card card h-100 text-center">
-
-          <div class="card-body p-4">
-
-            <div class="mx-auto mb-4" style="width: 64px; height: 64px; background: #16a34a; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
-
-              <i class="ri-route-line" style="font-size: 28px; color: white;"></i>
-
-            </div>
-
-            <h5 class="fw-semibold mb-3">Smart Resource Allocation</h5>
-
-            <p style="color: #94a3b8; line-height: 1.6;">
-
-              AI-optimized resource deployment considering traffic conditions, vehicle capacity, and incident severity for maximum efficiency.
-
-            </p>
-
-          </div>
-
-        </div>
-
-      </div>
-
-      
-
-      <div class="col-md-6 col-lg-4">
-
-        <div class="feature-card card h-100 text-center">
-
-          <div class="card-body p-4">
-
-            <div class="mx-auto mb-4" style="width: 64px; height: 64px; background: #7c3aed; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
-
-              <i class="ri-notification-2-line" style="font-size: 28px; color: white;"></i>
-
-            </div>
-
-            <h5 class="fw-semibold mb-3">Multi-Channel Alerts</h5>
-
-            <p style="color: #94a3b8; line-height: 1.6;">
-
-              Broadcast emergency alerts via SMS, mobile apps, sirens, and social media in multiple languages with location-based targeting.
-
-            </p>
-
-          </div>
-
-        </div>
-
-      </div>
-
-      
-
-      <div class="col-md-6 col-lg-4">
-
-        <div class="feature-card card h-100 text-center">
-
-          <div class="card-body p-4">
-
-            <div class="mx-auto mb-4" style="width: 64px; height: 64px; background: #ea580c; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
-
-              <i class="ri-smartphone-line" style="font-size: 28px; color: white;"></i>
-
-            </div>
-
-            <h5 class="fw-semibold mb-3">Citizen App Integration</h5>
-
-            <p style="color: #94a3b8; line-height: 1.6;">
-
-              Mobile application for citizens to report incidents, receive alerts, locate shelters, and access emergency services with offline capabilities.
-
-            </p>
-
-          </div>
-
-        </div>
-
-      </div>
-
-      
-
-      <div class="col-md-6 col-lg-4">
-
-        <div class="feature-card card h-100 text-center">
-
-          <div class="card-body p-4">
-
-            <div class="mx-auto mb-4" style="width: 64px; height: 64px; background: #0d9488; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
-
-              <i class="ri-global-line" style="font-size: 28px; color: white;"></i>
-
-            </div>
-
-            <h5 class="fw-semibold mb-3">Scalable Architecture</h5>
-
-            <p style="color: #94a3b8; line-height: 1.6;">
-
-              Cloud-based infrastructure that scales from district to national level with integration capabilities for IMD, ISRO, and international disaster networks.
-
-            </p>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="display-5 fw-bold mb-4">Comprehensive Disaster Management Features</h2>
+      <p class="lead mx-auto" style="max-width: 800px; color: #94a3b8;">
+        From prediction to recovery, our AI-powered platform provides end-to-end disaster management capabilities for modern emergency response teams.
+      </p>
+    </div>
+    
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card card h-100 text-center">
+          <div class="card-body p-4">
+            <div class="mx-auto mb-4" style="width: 64px; height: 64px; background: #2563eb; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+              <i class="ri-brain-line" style="font-size: 28px; color: white;"></i>
+            </div>
+            <h5 class="fw-semibold mb-3">AI Risk Prediction</h5>
+            <p style="color: #94a3b8; line-height: 1.6;">
+              Advanced machine learning algorithms analyze weather patterns, historical data, and geographical factors to predict disaster risks with 95% accuracy.
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card card h-100 text-center">
+          <div class="card-body p-4">
+            <div class="mx-auto mb-4" style="width: 64px; height: 64px; background: #dc2626; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+              <i class="ri-radar-line" style="font-size: 28px; color: white;"></i>
+            </div>
+            <h5 class="fw-semibold mb-3">Real-Time Detection</h5>
+            <p style="color: #94a3b8; line-height: 1.6;">
+              Integrate multiple data sources including satellite imagery, IoT sensors, and citizen reports for immediate incident detection and verification.
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card card h-100 text-center">
+          <div class="card-body p-4">
+            <div class="mx-auto mb-4" style="width: 64px; height: 64px; background: #16a34a; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+              <i class="ri-route-line" style="font-size: 28px; color: white;"></i>
+            </div>
+            <h5 class="fw-semibold mb-3">Smart Resource Allocation</h5>
+            <p style="color: #94a3b8; line-height: 1.6;">
+              AI-optimized resource deployment considering traffic conditions, vehicle capacity, and incident severity for maximum efficiency.
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card card h-100 text-center">
+          <div class="card-body p-4">
+            <div class="mx-auto mb-4" style="width: 64px; height: 64px; background: #7c3aed; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+              <i class="ri-notification-2-line" style="font-size: 28px; color: white;"></i>
+            </div>
+            <h5 class="fw-semibold mb-3">Multi-Channel Alerts</h5>
+            <p style="color: #94a3b8; line-height: 1.6;">
+              Broadcast emergency alerts via SMS, mobile apps, sirens, and social media in multiple languages with location-based targeting.
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card card h-100 text-center">
+          <div class="card-body p-4">
+            <div class="mx-auto mb-4" style="width: 64px; height: 64px; background: #ea580c; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+              <i class="ri-smartphone-line" style="font-size: 28px; color: white;"></i>
+            </div>
+            <h5 class="fw-semibold mb-3">Citizen App Integration</h5>
+            <p style="color: #94a3b8; line-height: 1.6;">
+              Mobile application for citizens to report incidents, receive alerts, locate shelters, and access emergency services with offline capabilities.
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card card h-100 text-center">
+          <div class="card-body p-4">
+            <div class="mx-auto mb-4" style="width: 64px; height: 64px; background: #0d9488; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+              <i class="ri-global-line" style="font-size: 28px; color: white;"></i>
+            </div>
+            <h5 class="fw-semibold mb-3">Scalable Architecture</h5>
+            <p style="color: #94a3b8; line-height: 1.6;">
+              Cloud-based infrastructure that scales from district to national level with integration capabilities for IMD, ISRO, and international disaster networks.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
-
-
 <!-- Footer -->
-
 <footer class="py-5" style="background: var(--card-bg); border-top: 1px solid var(--border-color);">
-
-  <div class="container">
-
-    <div class="row g-4">
-
-      <div class="col-md-6 col-lg-3">
-
-        <div class="d-flex align-items-center mb-4">
-
-          <div class="me-3" style="width: 40px; height: 40px; background: var(--primary-color); border-radius: 8px; display: flex; align-items: center; justify-content: center;">
-
-            <i class="ri-shield-check-fill" style="font-size: 20px; color: white;"></i>
-
-          </div>
-
-          <h4 class="fw-bold mb-0">SARAL</h4>
-
-        </div>
-
-        <p style="color: #94a3b8; line-height: 1.6;">
-
-          Empowering communities with AI-driven disaster management solutions for a safer, more resilient future.
-
-        </p>
-
-      </div>
-
-      
-
-      <div class="col-md-6 col-lg-3">
-
-        <h6 class="fw-semibold mb-3">Platform</h6>
-
-        <ul class="list-unstyled">
-
-          <li class="mb-2"><a href="#" style="color: #94a3b8; text-decoration: none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">Risk Assessment</a></li>
-
-          <li class="mb-2"><a href="#" style="color: #94a3b8; text-decoration: none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">Incident Management</a></li>
-
-          <li class="mb-2"><a href="#" style="color: #94a3b8; text-decoration: none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">Resource Allocation</a></li>
-
-          <li class="mb-2"><a href="#" style="color: #94a3b8; text-decoration: none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">Alert System</a></li>
-
-        </ul>
-
-      </div>
-
-      
-
-      <div class="col-md-6 col-lg-3">
-
-        <h6 class="fw-semibold mb-3">Resources</h6>
-
-        <ul class="list-unstyled">
-
-          <li class="mb-2"><a href="#" style="color: #94a3b8; text-decoration: none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">Documentation</a></li>
-
-          <li class="mb-2"><a href="#" style="color: #94a3b8; text-decoration: none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">API Reference</a></li>
-
-          <li class="mb-2"><a href="#" style="color: #94a3b8; text-decoration: none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">Training Materials</a></li>
-
-          <li class="mb-2"><a href="#" style="color: #94a3b8; text-decoration: none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">Best Practices</a></li>
-
-        </ul>
-
-      </div>
-
-      
-
-      <div class="col-md-6 col-lg-3">
-
-        <h6 class="fw-semibold mb-3">Contact</h6>
-
-        <ul class="list-unstyled">
-
-          <li class="mb-2 d-flex align-items-center" style="font-size: 14px; color: #94a3b8;">
-
-            <i class="ri-phone-line me-2"></i>
-
-            <span>+91-1800208333</span>
-
-          </li>
-
-          <li class="mb-2 d-flex align-items-center" style="font-size: 14px; color: #94a3b8;">
-
-            <i class="ri-mail-line me-2"></i>
-
-            <span>emergency@saral.gov</span>
-
-          </li>
-
-          <li class="mb-2 d-flex align-items-start" style="font-size: 14px; color: #94a3b8;">
-
-            <i class="ri-map-pin-line me-2 mt-1"></i>
-
-            <span>Manipal University Jaipur, Rajasthan 303007</span>
-
-          </li>
-
-        </ul>
-
-      </div>
-
-    </div>
-
-    
-
-    <hr style="border-color: var(--border-color); margin: 2rem 0;">
-
-    
-
-    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
-
-      <p class="mb-0" style="color: #94a3b8;">
-
-        &copy; 2025 SARAL. All rights reserved. Built for emergency response excellence.
-
-      </p>
-
-      <div class="d-flex align-items-center mt-3 mt-md-0">
-
-        <div class="status-indicator me-2" style="width: 8px; height: 8px; background: #22c55e; border-radius: 50%;"></div>
-
-        <span style="font-size: 14px; color: #22c55e;">System Operational</span>
-
-      </div>
-
-    </div>
-
-  </div>
-
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-3">
+        <div class="d-flex align-items-center mb-4">
+          <div class="me-3" style="width: 40px; height: 40px; background: var(--primary-color); border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+            <i class="ri-shield-check-fill" style="font-size: 20px; color: white;"></i>
+          </div>
+          <h4 class="fw-bold mb-0">SARAL</h4>
+        </div>
+        <p style="color: #94a3b8; line-height: 1.6;">
+          Empowering communities with AI-driven disaster management solutions for a safer, more resilient future.
+        </p>
+      </div>
+      
+      <div class="col-md-6 col-lg-3">
+        <h6 class="fw-semibold mb-3">Platform</h6>
+        <ul class="list-unstyled">
+          <li class="mb-2"><a href="#" style="color: #94a3b8; text-decoration: none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">Risk Assessment</a></li>
+          <li class="mb-2"><a href="#" style="color: #94a3b8; text-decoration: none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">Incident Management</a></li>
+          <li class="mb-2"><a href="#" style="color: #94a3b8; text-decoration: none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">Resource Allocation</a></li>
+          <li class="mb-2"><a href="#" style="color: #94a3b8; text-decoration: none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">Alert System</a></li>
+        </ul>
+      </div>
+      
+      <div class="col-md-6 col-lg-3">
+        <h6 class="fw-semibold mb-3">Resources</h6>
+        <ul class="list-unstyled">
+          <li class="mb-2"><a href="#" style="color: #94a3b8; text-decoration: none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">Documentation</a></li>
+          <li class="mb-2"><a href="#" style="color: #94a3b8; text-decoration: none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">API Reference</a></li>
+          <li class="mb-2"><a href="#" style="color: #94a3b8; text-decoration: none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">Training Materials</a></li>
+          <li class="mb-2"><a href="#" style="color: #94a3b8; text-decoration: none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">Best Practices</a></li>
+        </ul>
+      </div>
+      
+      <div class="col-md-6 col-lg-3">
+        <h6 class="fw-semibold mb-3">Contact</h6>
+        <ul class="list-unstyled">
+          <li class="mb-2 d-flex align-items-center" style="font-size: 14px; color: #94a3b8;">
+            <i class="ri-phone-line me-2"></i>
+            <span>+91-1800208333</span>
+          </li>
+          <li class="mb-2 d-flex align-items-center" style="font-size: 14px; color: #94a3b8;">
+            <i class="ri-mail-line me-2"></i>
+            <span>emergency@saral.gov</span>
+          </li>
+          <li class="mb-2 d-flex align-items-start" style="font-size: 14px; color: #94a3b8;">
+            <i class="ri-map-pin-line me-2 mt-1"></i>
+            <span>Manipal University Jaipur, Rajasthan 303007</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+    <hr style="border-color: var(--border-color); margin: 2rem 0;">
+    
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
+      <p class="mb-0" style="color: #94a3b8;">
+        &copy; 2025 SARAL. All rights reserved. Built for emergency response excellence.
+      </p>
+      <div class="d-flex align-items-center mt-3 mt-md-0">
+        <div class="status-indicator me-2" style="width: 8px; height: 8px; background: #22c55e; border-radius: 50%;"></div>
+        <span style="font-size: 14px; color: #22c55e;">System Operational</span>
+      </div>
+    </div>
+  </div>
 </footer>
 
-
-
 <!-- Bootstrap JS -->
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-
-
 <!-- Chart Initialization -->
-
 <script>
-
 document.addEventListener('DOMContentLoaded', function() {
-
-  try {
-
-    const chartCommonConfig = {
-
-      animation: { duration: 1000, easing: 'cubicOut' },
-
-      tooltip: {
-
-        backgroundColor: 'rgba(255, 255, 255, 0.95)',
-
-        textStyle: { color: '#1f2937' },
-
-        borderRadius: 8,
-
-        borderWidth: 0,
-
-        shadowBlur: 10,
-
-        shadowColor: 'rgba(0, 0, 0, 0.3)'
-
-      },
-
-      textStyle: { color: '#94a3b8' }
-
-    };
-
-
-
-    // Resource Chart
-
-    if(document.getElementById('resourceChart')) {
-
-      const resourceChart = echarts.init(document.getElementById('resourceChart'));
-
-      resourceChart.setOption({
-
-        ...chartCommonConfig,
-
-        title: { text: 'Resources', textStyle: { color: '#fff', fontSize: 12 }, left: 'center', top: 10 },
-
-        tooltip: { trigger: 'axis' },
-
-        grid: { top: 40, right: 15, bottom: 30, left: 30 },
-
-        xAxis: {
-
-          type: 'category',
-
-          data: ['Trucks', 'Boats', 'Ambulances'],
-
-          axisLabel: { color: '#94a3b8', fontSize: 10 }
-
-        },
-
-        yAxis: { type: 'value', axisLabel: { color: '#94a3b8', fontSize: 10 } },
-
-        series: [{
-
-          type: 'bar',
-
-          data: [12, 6, 18],
-
-          itemStyle: { 
-
-            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-
-              { offset: 0, color: '#60a5fa' },
-
-              { offset: 1, color: '#3b82f6' }
-
-            ]),
-
-            borderRadius: [4, 4, 0, 0]
-
-          }
-
-        }]
-
-      });
-
-    }
-
-
-
-    // Utilization Chart
-
-    if(document.getElementById('utilizationChart')) {
-
-      const utilizationChart = echarts.init(document.getElementById('utilizationChart'));
-
-      utilizationChart.setOption({
-
-        ...chartCommonConfig,
-
-        title: { text: 'Utilization', textStyle: { color: '#fff', fontSize: 12 }, left: 'center', top: 10 },
-
-        tooltip: { trigger: 'item', formatter: '{b}: {c}%' },
-
-        series: [{
-
-          type: 'pie',
-
-          radius: ['40%', '60%'],
-
-          center: ['50%', '60%'],
-
-          data: [
-
-            { value: 75, name: 'Deployed', itemStyle: { color: '#ef4444' } },
-
-            { value: 25, name: 'Available', itemStyle: { color: '#22c55e' } }
-
-          ],
-
-          label: { show: false },
-
-          emphasis: { scale: true, scaleSize: 5 }
-
-        }]
-
-      });
-
-    }
-
-
-
-    // Trend Chart
-
-    if(document.getElementById('trendChart')) {
-
-      const trendChart = echarts.init(document.getElementById('trendChart'));
-
-      trendChart.setOption({
-
-        ...chartCommonConfig,
-
-        title: { text: 'Trends', textStyle: { color: '#fff', fontSize: 12 }, left: 'center', top: 10 },
-
-        tooltip: { trigger: 'axis' },
-
-        grid: { top: 40, right: 15, bottom: 30, left: 30 },
-
-        xAxis: {
-
-          type: 'category',
-
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
-
-          axisLabel: { color: '#94a3b8', fontSize: 10 }
-
-        },
-
-        yAxis: { type: 'value', axisLabel: { color: '#94a3b8', fontSize: 10 } },
-
-        series: [{
-
-          type: 'line',
-
-          smooth: true,
-
-          data: [15, 18, 12, 20, 16],
-
-          lineStyle: { color: '#f59e0b', width: 2 },
-
-          areaStyle: {
-
-            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-
-              { offset: 0, color: 'rgba(245, 158, 11, 0.3)' },
-
-              { offset: 1, color: 'rgba(245, 158, 11, 0.05)' }
-
-            ])
-
-          },
-
-          symbol: 'circle',
-
-          symbolSize: 6
-
-        }]
-
-      });
-
-    }
-
-
-
-    // Response Chart
-
-    if(document.getElementById('responseChart')) {
-
-      const responseChart = echarts.init(document.getElementById('responseChart'));
-
-      responseChart.setOption({
-
-        ...chartCommonConfig,
-
-        title: { text: 'Response Time', textStyle: { color: '#fff', fontSize: 12 }, left: 'center', top: 10 },
-
-        tooltip: { trigger: 'item' },
-
-        series: [{
-
-          type: 'gauge',
-
-          radius: '80%',
-
-          center: ['50%', '60%'],
-
-          startAngle: 180,
-
-          endAngle: 0,
-
-          min: 0,
-
-          max: 10,
-
-          splitNumber: 5,
-
-          axisLine: {
-
-            lineStyle: {
-
-              width: 6,
-
-              color: [
-
-                [0.3, '#22c55e'],
-
-                [0.7, '#eab308'],
-
-                [1, '#ef4444']
-
-              ]
-
-            }
-
-          },
-
-          pointer: {
-
-            icon: 'path://M12.8,0.7l12,40.1H0.7L12.8,0.7z',
-
-            length: '70%',
-
-            width: 6,
-
-            offsetCenter: [0, '-60%'],
-
-            itemStyle: { color: '#fff' }
-
-          },
-
-          axisTick: { show: false },
-
-          splitLine: { show: false },
-
-          axisLabel: { show: false },
-
-          title: {
-
-            offsetCenter: [0, '20%'],
-
-            fontSize: 10,
-
-            color: '#94a3b8'
-
-          },
-
-          detail: {
-
-            fontSize: 16,
-
-            offsetCenter: [0, '0%'],
-
-            valueAnimation: true,
-
-            formatter: '{value} min',
-
-            color: '#fff'
-
-          },
-
-          data: [{ value: 4.2, name: 'Avg Response' }]
-
-        }]
-
-      });
-
-    }
-
-
-
-    // Store chart instances globally for resize
-
-    window.chartInstances = {
-
-      resourceChart: resourceChart,
-
-      utilizationChart: utilizationChart, 
-
-      trendChart: trendChart,
-
-      responseChart: responseChart
-
-    };
-
-
-
-    // Resize charts on window resize
-
-    window.addEventListener('resize', function() {
-
-      Object.values(window.chartInstances).forEach(chart => {
-
-        if(chart && typeof chart.resize === 'function') {
-
-          try {
-
-            chart.resize();
-
-          } catch(e) {
-
-            console.log('Chart resize error:', e);
-
-          }
-
-        }
-
-      });
-
-    });
-
-
-
-  } catch(error) {
-
-    console.error('Chart initialization error:', error);
-
-  }
-
+  try {
+    const chartCommonConfig = {
+      animation: { duration: 1000, easing: 'cubicOut' },
+      tooltip: {
+        backgroundColor: 'rgba(255, 255, 255, 0.95)',
+        textStyle: { color: '#1f2937' },
+        borderRadius: 8,
+        borderWidth: 0,
+        shadowBlur: 10,
+        shadowColor: 'rgba(0, 0, 0, 0.3)'
+      },
+      textStyle: { color: '#94a3b8' }
+    };
+
+    // Resource Chart
+    if(document.getElementById('resourceChart')) {
+      const resourceChart = echarts.init(document.getElementById('resourceChart'));
+      resourceChart.setOption({
+        ...chartCommonConfig,
+        title: { text: 'Resources', textStyle: { color: '#fff', fontSize: 12 }, left: 'center', top: 10 },
+        tooltip: { trigger: 'axis' },
+        grid: { top: 40, right: 15, bottom: 30, left: 30 },
+        xAxis: {
+          type: 'category',
+          data: ['Trucks', 'Boats', 'Ambulances'],
+          axisLabel: { color: '#94a3b8', fontSize: 10 }
+        },
+        yAxis: { type: 'value', axisLabel: { color: '#94a3b8', fontSize: 10 } },
+        series: [{
+          type: 'bar',
+          data: [12, 6, 18],
+          itemStyle: { 
+            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+              { offset: 0, color: '#60a5fa' },
+              { offset: 1, color: '#3b82f6' }
+            ]),
+            borderRadius: [4, 4, 0, 0]
+          }
+        }]
+      });
+    }
+
+    // Utilization Chart
+    if(document.getElementById('utilizationChart')) {
+      const utilizationChart = echarts.init(document.getElementById('utilizationChart'));
+      utilizationChart.setOption({
+        ...chartCommonConfig,
+        title: { text: 'Utilization', textStyle: { color: '#fff', fontSize: 12 }, left: 'center', top: 10 },
+        tooltip: { trigger: 'item', formatter: '{b}: {c}%' },
+        series: [{
+          type: 'pie',
+          radius: ['40%', '60%'],
+          center: ['50%', '60%'],
+          data: [
+            { value: 75, name: 'Deployed', itemStyle: { color: '#ef4444' } },
+            { value: 25, name: 'Available', itemStyle: { color: '#22c55e' } }
+          ],
+          label: { show: false },
+          emphasis: { scale: true, scaleSize: 5 }
+        }]
+      });
+    }
+
+    // Trend Chart
+    if(document.getElementById('trendChart')) {
+      const trendChart = echarts.init(document.getElementById('trendChart'));
+      trendChart.setOption({
+        ...chartCommonConfig,
+        title: { text: 'Trends', textStyle: { color: '#fff', fontSize: 12 }, left: 'center', top: 10 },
+        tooltip: { trigger: 'axis' },
+        grid: { top: 40, right: 15, bottom: 30, left: 30 },
+        xAxis: {
+          type: 'category',
+          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+          axisLabel: { color: '#94a3b8', fontSize: 10 }
+        },
+        yAxis: { type: 'value', axisLabel: { color: '#94a3b8', fontSize: 10 } },
+        series: [{
+          type: 'line',
+          smooth: true,
+          data: [15, 18, 12, 20, 16],
+          lineStyle: { color: '#f59e0b', width: 2 },
+          areaStyle: {
+            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+              { offset: 0, color: 'rgba(245, 158, 11, 0.3)' },
+              { offset: 1, color: 'rgba(245, 158, 11, 0.05)' }
+            ])
+          },
+          symbol: 'circle',
+          symbolSize: 6
+        }]
+      });
+    }
+
+    // Response Chart
+    if(document.getElementById('responseChart')) {
+      const responseChart = echarts.init(document.getElementById('responseChart'));
+      responseChart.setOption({
+        ...chartCommonConfig,
+        title: { text: 'Response Time', textStyle: { color: '#fff', fontSize: 12 }, left: 'center', top: 10 },
+        tooltip: { trigger: 'item' },
+        series: [{
+          type: 'gauge',
+          radius: '80%',
+          center: ['50%', '60%'],
+          startAngle: 180,
+          endAngle: 0,
+          min: 0,
+          max: 10,
+          splitNumber: 5,
+          axisLine: {
+            lineStyle: {
+              width: 6,
+              color: [
+                [0.3, '#22c55e'],
+                [0.7, '#eab308'],
+                [1, '#ef4444']
+              ]
+            }
+          },
+          pointer: {
+            icon: 'path://M12.8,0.7l12,40.1H0.7L12.8,0.7z',
+            length: '70%',
+            width: 6,
+            offsetCenter: [0, '-60%'],
+            itemStyle: { color: '#fff' }
+          },
+          axisTick: { show: false },
+          splitLine: { show: false },
+          axisLabel: { show: false },
+          title: {
+            offsetCenter: [0, '20%'],
+            fontSize: 10,
+            color: '#94a3b8'
+          },
+          detail: {
+            fontSize: 16,
+            offsetCenter: [0, '0%'],
+            valueAnimation: true,
+            formatter: '{value} min',
+            color: '#fff'
+          },
+          data: [{ value: 4.2, name: 'Avg Response' }]
+        }]
+      });
+    }
+
+    // Store chart instances globally for resize
+    window.chartInstances = {
+      resourceChart: resourceChart,
+      utilizationChart: utilizationChart, 
+      trendChart: trendChart,
+      responseChart: responseChart
+    };
+
+    // Resize charts on window resize
+    window.addEventListener('resize', function() {
+      Object.values(window.chartInstances).forEach(chart => {
+        if(chart && typeof chart.resize === 'function') {
+          try {
+            chart.resize();
+          } catch(e) {
+            console.log('Chart resize error:', e);
+          }
+        }
+      });
+    });
+
+  } catch(error) {
+    console.error('Chart initialization error:', error);
+  }
 });
-
 </script>
-
-
 
 <!-- Interactive Elements -->
-
 <script>
-
 document.addEventListener('DOMContentLoaded', function() {
-
-  // Smooth scrolling for navigation links
-
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-
-    anchor.addEventListener('click', function (e) {
-
-      e.preventDefault();
-
-      const target = document.querySelector(this.getAttribute('href'));
-
-      if (target) {
-
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-      }
-
-    });
-
-  });
-
-
-
-  // Alert button functionality
-
-  const sendAlertBtn = document.getElementById('sendAlertBtn');
-
-  if (sendAlertBtn) {
-
-    sendAlertBtn.addEventListener('click', function() {
-
-      const originalContent = this.innerHTML;
-
-      this.innerHTML = '<span class="loading-spinner me-2"></span>Sending...';
-
-      this.disabled = true;
-
-      
-
-      setTimeout(() => {
-
-        this.innerHTML = '<i class="ri-check-line me-2"></i>Alert Sent';
-
-        this.className = 'btn btn-success flex-fill';
-
-        
-
-        setTimeout(() => {
-
-          this.innerHTML = originalContent;
-
-          this.className = 'btn btn-danger flex-fill';
-
-          this.disabled = false;
-
-        }, 3000);
-
-      }, 2000);
-
-    });
-
-  }
-
-
-
-  // Scroll animations
-
-  const observerOptions = {
-
-    threshold: 0.1,
-
-    rootMargin: '0px 0px -50px 0px'
-
-  };
-
-
-
-  const observer = new IntersectionObserver(function(entries) {
-
-    entries.forEach(entry => {
-
-      if (entry.isIntersecting) {
-
-        entry.target.classList.add('visible');
-
-      }
-
-    });
-
-  }, observerOptions);
-
-
-
-  document.querySelectorAll('.scroll-animate').forEach(el => {
-
-    observer.observe(el);
-
-  });
-
-
-
-  // Navbar scroll effect
-
-  let lastScrollTop = 0;
-
-  window.addEventListener('scroll', function() {
-
-    const navbar = document.querySelector('.navbar');
-
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-    
-
-    if (scrollTop > lastScrollTop && scrollTop > 100) {
-
-      navbar.style.transform = 'translateY(-100%)';
-
-    } else {
-
-      navbar.style.transform = 'translateY(0)';
-
-    }
-
-    
-
-    if (scrollTop > 50) {
-
-      navbar.style.background = 'rgba(30, 41, 59, 0.98)';
-
-      navbar.style.backdropFilter = 'blur(20px)';
-
-    } else {
-
-      navbar.style.background = 'rgba(30, 41, 59, 0.95)';
-
-      navbar.style.backdropFilter = 'blur(10px)';
-
-    }
-
-    
-
-    lastScrollTop = scrollTop;
-
-  });
-
-
-
-  // Dynamic resource status updates
-
-  function updateResourceStatus() {
-
-    const resourceCards = document.querySelectorAll('.resource-card');
-
-    resourceCards.forEach((card, index) => {
-
-      const delay = index * 200;
-
-      setTimeout(() => {
-
-        card.style.transform = 'scale(1.02)';
-
-        setTimeout(() => {
-
-          card.style.transform = 'scale(1)';
-
-        }, 200);
-
-      }, delay);
-
-    });
-
-  }
-
-
-
-  // Update resource status every 10 seconds
-
-  setInterval(updateResourceStatus, 10000);
-
-
-
-  // Interactive map markers
-
-  const mapContainer = document.querySelector('.map-container');
-
-  if (mapContainer) {
-
-    // Add interactive incident markers
-
-    const incidents = [
-
-      { x: '25%', y: '40%', type: 'flood', severity: 'high' },
-
-      { x: '60%', y: '30%', type: 'landslide', severity: 'medium' },
-
-      { x: '45%', y: '65%', type: 'fire', severity: 'low' }
-
-    ];
-
-
-
-    incidents.forEach((incident, index) => {
-
-      const marker = document.createElement('div');
-
-      marker.style.cssText = `
-
-        position: absolute;
-
-        left: ${incident.x};
-
-        top: ${incident.y};
-
-        width: 12px;
-
-        height: 12px;
-
-        background: ${incident.severity === 'high' ? '#ef4444' : incident.severity === 'medium' ? '#f97316' : '#eab308'};
-
-        border-radius: 50%;
-
-        cursor: pointer;
-
-        animation: markerPulse 2s infinite;
-
-        animation-delay: ${index * 0.5}s;
-
-        z-index: 10;
-
-      `;
-
-      
-
-      marker.addEventListener('click', function() {
-
-        alert(`Incident: ${incident.type}\nSeverity: ${incident.severity}\nLocation: ${incident.x}, ${incident.y}`);
-
-      });
-
-      
-
-      mapContainer.appendChild(marker);
-
-    });
-
-  }
-
-
-
-  // Add marker pulse animation
-
-  const style = document.createElement('style');
-
-  style.textContent = `
-
-    @keyframes markerPulse {
-
-      0%, 100% { transform: scale(1); opacity: 1; }
-
-      50% { transform: scale(1.5); opacity: 0.7; }
-
-    }
-
-  `;
-
-  document.head.appendChild(style);
-
+  // Smooth scrolling for navigation links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // Alert button functionality
+  const sendAlertBtn = document.getElementById('sendAlertBtn');
+  if (sendAlertBtn) {
+    sendAlertBtn.addEventListener('click', function() {
+      const originalContent = this.innerHTML;
+      this.innerHTML = '<span class="loading-spinner me-2"></span>Sending...';
+      this.disabled = true;
+      
+      setTimeout(() => {
+        this.innerHTML = '<i class="ri-check-line me-2"></i>Alert Sent';
+        this.className = 'btn btn-success flex-fill';
+        
+        setTimeout(() => {
+          this.innerHTML = originalContent;
+          this.className = 'btn btn-danger flex-fill';
+          this.disabled = false;
+        }, 3000);
+      }, 2000);
+    });
+  }
+
+  // Scroll animations
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.scroll-animate').forEach(el => {
+    observer.observe(el);
+  });
+
+  // Navbar scroll effect
+  let lastScrollTop = 0;
+  window.addEventListener('scroll', function() {
+    const navbar = document.querySelector('.navbar');
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    
+    if (scrollTop > lastScrollTop && scrollTop > 100) {
+      navbar.style.transform = 'translateY(-100%)';
+    } else {
+      navbar.style.transform = 'translateY(0)';
+    }
+    
+    if (scrollTop > 50) {
+      navbar.style.background = 'rgba(30, 41, 59, 0.98)';
+      navbar.style.backdropFilter = 'blur(20px)';
+    } else {
+      navbar.style.background = 'rgba(30, 41, 59, 0.95)';
+      navbar.style.backdropFilter = 'blur(10px)';
+    }
+    
+    lastScrollTop = scrollTop;
+  });
+
+  // Dynamic resource status updates
+  function updateResourceStatus() {
+    const resourceCards = document.querySelectorAll('.resource-card');
+    resourceCards.forEach((card, index) => {
+      const delay = index * 200;
+      setTimeout(() => {
+        card.style.transform = 'scale(1.02)';
+        setTimeout(() => {
+          card.style.transform = 'scale(1)';
+        }, 200);
+      }, delay);
+    });
+  }
+
+  // Update resource status every 10 seconds
+  setInterval(updateResourceStatus, 10000);
+
+  // Interactive map markers
+  const mapContainer = document.querySelector('.map-container');
+  if (mapContainer) {
+    // Add interactive incident markers
+    const incidents = [
+      { x: '25%', y: '40%', type: 'flood', severity: 'high' },
+      { x: '60%', y: '30%', type: 'landslide', severity: 'medium' },
+      { x: '45%', y: '65%', type: 'fire', severity: 'low' }
+    ];
+
+    incidents.forEach((incident, index) => {
+      const marker = document.createElement('div');
+      marker.style.cssText = `
+        position: absolute;
+        left: ${incident.x};
+        top: ${incident.y};
+        width: 12px;
+        height: 12px;
+        background: ${incident.severity === 'high' ? '#ef4444' : incident.severity === 'medium' ? '#f97316' : '#eab308'};
+        border-radius: 50%;
+        cursor: pointer;
+        animation: markerPulse 2s infinite;
+        animation-delay: ${index * 0.5}s;
+        z-index: 10;
+      `;
+      
+      marker.addEventListener('click', function() {
+        alert(`Incident: ${incident.type}\nSeverity: ${incident.severity}\nLocation: ${incident.x}, ${incident.y}`);
+      });
+      
+      mapContainer.appendChild(marker);
+    });
+  }
+
+  // Add marker pulse animation
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes markerPulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.5); opacity: 0.7; }
+    }
+  `;
+  document.head.appendChild(style);
 });
-
 </script>
-
-
 
 <!-- Particle System -->
-
 <script>
-
 document.addEventListener('DOMContentLoaded', function() {
+  function createParticle() {
+    const particle = document.createElement('div');
+    particle.style.cssText = `
+      position: fixed;
+      width: 4px;
+      height: 4px;
+      background: rgba(59, 130, 246, 0.6);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 1;
+      left: ${Math.random() * 100}%;
+      top: 100%;
+      animation: particleFloat ${5 + Math.random() * 10}s linear forwards;
+    `;
+    
+    document.body.appendChild(particle);
+    
+    setTimeout(() => {
+      particle.remove();
+    }, 15000);
+  }
 
-  function createParticle() {
+  // Add particle float animation
+  const particleStyle = document.createElement('style');
+  particleStyle.textContent = `
+    @keyframes particleFloat {
+      to {
+        transform: translateY(-100vh) translateX(${Math.random() * 200 - 100}px);
+        opacity: 0;
+      }
+    }
+  `;
+  document.head.appendChild(particleStyle);
 
-    const particle = document.createElement('div');
-
-    particle.style.cssText = `
-
-      position: fixed;
-
-      width: 4px;
-
-      height: 4px;
-
-      background: rgba(59, 130, 246, 0.6);
-
-      border-radius: 50%;
-
-      pointer-events: none;
-
-      z-index: 1;
-
-      left: ${Math.random() * 100}%;
-
-      top: 100%;
-
-      animation: particleFloat ${5 + Math.random() * 10}s linear forwards;
-
-    `;
-
-    
-
-    document.body.appendChild(particle);
-
-    
-
-    setTimeout(() => {
-
-      particle.remove();
-
-    }, 15000);
-
-  }
-
-
-
-  // Add particle float animation
-
-  const particleStyle = document.createElement('style');
-
-  particleStyle.textContent = `
-
-    @keyframes particleFloat {
-
-      to {
-
-        transform: translateY(-100vh) translateX(${Math.random() * 200 - 100}px);
-
-        opacity: 0;
-
-      }
-
-    }
-
-  `;
-
-  document.head.appendChild(particleStyle);
-
-
-
-  // Create particles periodically
-
-  setInterval(createParticle, 2000);
-
+  // Create particles periodically
+  setInterval(createParticle, 2000);
 });
-
 </script>
-
-
 
 <!-- Real-time Updates -->
-
 <script>
-
 document.addEventListener('DOMContentLoaded', function() {
-
-  // Simulate real-time data updates
-
-  function updateStats() {
-
-    const stats = {
-
-      incidents: Math.floor(Math.random() * 3) + 6,
-
-      resources: Math.floor(Math.random() * 5) + 21,
-
-      responseTime: (Math.random() * 2 + 3).toFixed(1),
-
-      alerts: Math.floor(Math.random() * 100) + 1200
-
-    };
-
-
-
-    // Update the stats with animation
-
-    const statElements = document.querySelectorAll('.fw-bold');
-
-    const statValues = [stats.incidents, stats.resources, stats.responseTime + ' min', stats.alerts.toLocaleString()];
-
-    
-
-    statElements.forEach((el, index) => {
-
-      if (index < statValues.length) {
-
-        el.style.transform = 'scale(1.1)';
-
-        setTimeout(() => {
-
-          el.textContent = statValues[index];
-
-          el.style.transform = 'scale(1)';
-
-        }, (index + 1) * 200);
-
-      }
-
-    });
-
-  }
-
-
-
-  // Update stats every 30 seconds
-
-  setInterval(updateStats, 30000);
-
-
-
-  // Weather animation
-
-  function animateWeatherIcons() {
-
-    const weatherIcon = document.querySelector('.ri-cloud-rain-line');
-
-    if (weatherIcon) {
-
-      weatherIcon.style.animation = 'none';
-
-      setTimeout(() => {
-
-        weatherIcon.style.animation = 'bounce 1s ease-in-out';
-
-      }, 10);
-
-    }
-
-  }
-
-
-
-  setInterval(animateWeatherIcons, 5000);
-
-
-
-  // Dynamic time update
-
-  function updateTime() {
-
-    const now = new Date();
-
-    const options = { 
-
-      year: 'numeric', 
-
-      month: 'short', 
-
-      day: 'numeric',
-
-      hour: '2-digit',
-
-      minute: '2-digit',
-
-      timeZone: 'Asia/Kolkata'
-
-    };
-
-    const timeString = now.toLocaleDateString('en-IN', options) + ' IST';
-
-    
-
-    // Find and update time display using a more specific selector
-
-    const timeDisplays = document.querySelectorAll('div');
-
-    timeDisplays.forEach(div => {
-
-      if (div.textContent && div.textContent.includes('2025') && div.textContent.includes('IST')) {
-
-        div.textContent = timeString;
-
-      }
-
-    });
-
-  }
-
-
-
-  // Update time every minute
-
-  setInterval(updateTime, 60000);
-
-  updateTime(); // Initial call
-
-
-
-  // Add typing effect to hero text
-
-  function typeWriter(element, text, speed = 50) {
-
-    element.textContent = '';
-
-    let i = 0;
-
-    
-
-    function type() {
-
-      if (i < text.length) {
-
-        element.textContent += text.charAt(i);
-
-        i++;
-
-        setTimeout(type, speed);
-
-      }
-
-    }
-
-    
-
-    type();
-
-  }
-
-
-
-  // Emergency alert simulation
-
-  function showEmergencyAlert() {
-
-    const alertTypes = [
-
-      { type: 'Earthquake', severity: 'Critical', location: 'Central District' },
-
-      { type: 'Cyclone', severity: 'High', location: 'Coastal Area' },
-
-      { type: 'Forest Fire', severity: 'Medium', location: 'Hill Station' }
-
-    ];
-
-
-
-    const randomAlert = alertTypes[Math.floor(Math.random() * alertTypes.length)];
-
-    
-
-    const alertDiv = document.createElement('div');
-
-    alertDiv.className = 'alert position-fixed';
-
-    alertDiv.style.cssText = `
-
-      top: 100px;
-
-      right: 20px;
-
-      z-index: 1050;
-
-      min-width: 300px;
-
-      background: linear-gradient(135deg, #ef4444, #dc2626);
-
-      border: none;
-
-      border-radius: 12px;
-
-      color: white;
-
-      box-shadow: 0 20px 40px rgba(239, 68, 68, 0.3);
-
-      animation: slideInAlert 0.5s ease-out;
-
-    `;
-
-    
-
-    alertDiv.innerHTML = `
-
-      <div class="d-flex align-items-start">
-
-        <i class="ri-alarm-warning-fill me-3 mt-1" style="font-size: 20px;"></i>
-
-        <div class="flex-grow-1">
-
-          <strong>${randomAlert.type} Alert</strong>
-
-          <br><small>Severity: ${randomAlert.severity}</small>
-
-          <br><small>Location: ${randomAlert.location}</small>
-
-        </div>
-
-        <button type="button" class="btn-close btn-close-white" onclick="this.parentElement.parentElement.remove()"></button>
-
-      </div>
-
-    `;
-
-
-
-    // Add slide-in animation
-
-    const alertStyle = document.createElement('style');
-
-    alertStyle.textContent = `
-
-      @keyframes slideInAlert {
-
-        from { transform: translateX(100%); opacity: 0; }
-
-        to { transform: translateX(0); opacity: 1; }
-
-      }
-
-    `;
-
-    document.head.appendChild(alertStyle);
-
-
-
-    document.body.appendChild(alertDiv);
-
-    
-
-    // Auto remove after 8 seconds
-
-    setTimeout(() => {
-
-      if (alertDiv.parentNode) {
-
-        alertDiv.style.animation = 'slideInAlert 0.5s ease-out reverse';
-
-        setTimeout(() => alertDiv.remove(), 500);
-
-      }
-
-    }, 8000);
-
-  }
-
-
-
-  // Show random emergency alerts
-
-  setTimeout(() => {
-
-    setInterval(showEmergencyAlert, 15000);
-
-  }, 5000);
-
-
-
-  // Interactive dashboard elements
-
-  const dashboardCards = document.querySelectorAll('.card');
-
-  dashboardCards.forEach((card, index) => {
-
-    card.style.animationDelay = `${index * 0.1}s`;
-
-    
-
-    card.addEventListener('mouseenter', function() {
-
-      this.style.transform = 'translateY(-8px) scale(1.02)';
-
-      this.style.boxShadow = '0 25px 50px rgba(59, 130, 246, 0.2)';
-
-    });
-
-    
-
-    card.addEventListener('mouseleave', function() {
-
-      this.style.transform = 'translateY(0) scale(1)';
-
-      this.style.boxShadow = 'none';
-
-    });
-
-  });
-
-
-
-  // Add loading states to buttons
-
-  const buttons = document.querySelectorAll('.btn');
-
-  buttons.forEach(button => {
-
-    button.addEventListener('click', function(e) {
-
-      if (!this.disabled && !this.classList.contains('btn-outline-light')) {
-
-        const ripple = document.createElement('span');
-
-        ripple.style.cssText = `
-
-          position: absolute;
-
-          border-radius: 50%;
-
-          background: rgba(255, 255, 255, 0.6);
-
-          transform: scale(0);
-
-          animation: rippleEffect 0.6s linear;
-
-          left: ${e.offsetX - 10}px;
-
-          top: ${e.offsetY - 10}px;
-
-          width: 20px;
-
-          height: 20px;
-
-          pointer-events: none;
-
-        `;
-
-        
-
-        this.style.position = 'relative';
-
-        this.style.overflow = 'hidden';
-
-        this.appendChild(ripple);
-
-        
-
-        setTimeout(() => ripple.remove(), 600);
-
-      }
-
-    });
-
-  });
-
-
-
-  // Add ripple effect animation
-
-  const rippleStyle = document.createElement('style');
-
-  rippleStyle.textContent = `
-
-    @keyframes rippleEffect {
-
-      to {
-
-        transform: scale(4);
-
-        opacity: 0;
-
-      }
-
-    }
-
-  `;
-
-  document.head.appendChild(rippleStyle);
-
-
-
-  // Counter animation for stats
-
-  function animateCounter(element, target, duration = 2000) {
-
-    if (!element || !element.textContent) return;
-
-    
-
-    const start = parseInt(element.textContent.replace(/[^\d]/g, '')) || 0;
-
-    const increment = (target - start) / (duration / 16);
-
-    let current = start;
-
-    
-
-    const timer = setInterval(() => {
-
-      current += increment;
-
-      if ((increment > 0 && current >= target) || (increment < 0 && current <= target)) {
-
-        current = target;
-
-        clearInterval(timer);
-
-      }
-
-      
-
-      if (element.textContent.includes('min')) {
-
-        element.textContent = Math.floor(current) + ' min';
-
-      } else if (target > 1000) {
-
-        element.textContent = Math.floor(current).toLocaleString();
-
-      } else {
-
-        element.textContent = Math.floor(current);
-
-      }
-
-    }, 16);
-
-  }
-
-
-
-  // Trigger counter animations when stats are visible
-
-  const statsObserver = new IntersectionObserver(function(entries) {
-
-    entries.forEach(entry => {
-
-      if (entry.isIntersecting) {
-
-        const numberElements = entry.target.querySelectorAll('.fw-bold');
-
-        const targets = [7, 23, 4.2, 1247];
-
-        
-
-        numberElements.forEach((el, index) => {
-
-          if (index < targets.length) {
-
-            setTimeout(() => {
-
-              animateCounter(el, targets[index]);
-
-            }, index * 200);
-
-          }
-
-        });
-
-        
-
-        statsObserver.unobserve(entry.target);
-
-      }
-
-    });
-
-  });
-
-
-
-  document.querySelectorAll('.card').forEach(card => {
-
-    statsObserver.observe(card);
-
-  });
-
+  // Simulate real-time data updates
+  function updateStats() {
+    const stats = {
+      incidents: Math.floor(Math.random() * 3) + 6,
+      resources: Math.floor(Math.random() * 5) + 21,
+      responseTime: (Math.random() * 2 + 3).toFixed(1),
+      alerts: Math.floor(Math.random() * 100) + 1200
+    };
+
+    // Update the stats with animation
+    const statElements = document.querySelectorAll('.fw-bold');
+    const statValues = [stats.incidents, stats.resources, stats.responseTime + ' min', stats.alerts.toLocaleString()];
+    
+    statElements.forEach((el, index) => {
+      if (index < statValues.length) {
+        el.style.transform = 'scale(1.1)';
+        setTimeout(() => {
+          el.textContent = statValues[index];
+          el.style.transform = 'scale(1)';
+        }, (index + 1) * 200);
+      }
+    });
+  }
+
+  // Update stats every 30 seconds
+  setInterval(updateStats, 30000);
+
+  // Weather animation
+  function animateWeatherIcons() {
+    const weatherIcon = document.querySelector('.ri-cloud-rain-line');
+    if (weatherIcon) {
+      weatherIcon.style.animation = 'none';
+      setTimeout(() => {
+        weatherIcon.style.animation = 'bounce 1s ease-in-out';
+      }, 10);
+    }
+  }
+
+  setInterval(animateWeatherIcons, 5000);
+
+  // Dynamic time update
+  function updateTime() {
+    const now = new Date();
+    const options = { 
+      year: 'numeric', 
+      month: 'short', 
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      timeZone: 'Asia/Kolkata'
+    };
+    const timeString = now.toLocaleDateString('en-IN', options) + ' IST';
+    
+    // Find and update time display using a more specific selector
+    const timeDisplays = document.querySelectorAll('div');
+    timeDisplays.forEach(div => {
+      if (div.textContent && div.textContent.includes('2025') && div.textContent.includes('IST')) {
+        div.textContent = timeString;
+      }
+    });
+  }
+
+  // Update time every minute
+  setInterval(updateTime, 60000);
+  updateTime(); // Initial call
+
+  // Add typing effect to hero text
+  function typeWriter(element, text, speed = 50) {
+    element.textContent = '';
+    let i = 0;
+    
+    function type() {
+      if (i < text.length) {
+        element.textContent += text.charAt(i);
+        i++;
+        setTimeout(type, speed);
+      }
+    }
+    
+    type();
+  }
+
+  // Emergency alert simulation
+  function showEmergencyAlert() {
+    const alertTypes = [
+      { type: 'Earthquake', severity: 'Critical', location: 'Central District' },
+      { type: 'Cyclone', severity: 'High', location: 'Coastal Area' },
+      { type: 'Forest Fire', severity: 'Medium', location: 'Hill Station' }
+    ];
+
+    const randomAlert = alertTypes[Math.floor(Math.random() * alertTypes.length)];
+    
+    const alertDiv = document.createElement('div');
+    alertDiv.className = 'alert position-fixed';
+    alertDiv.style.cssText = `
+      top: 100px;
+      right: 20px;
+      z-index: 1050;
+      min-width: 300px;
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+      border: none;
+      border-radius: 12px;
+      color: white;
+      box-shadow: 0 20px 40px rgba(239, 68, 68, 0.3);
+      animation: slideInAlert 0.5s ease-out;
+    `;
+    
+    alertDiv.innerHTML = `
+      <div class="d-flex align-items-start">
+        <i class="ri-alarm-warning-fill me-3 mt-1" style="font-size: 20px;"></i>
+        <div class="flex-grow-1">
+          <strong>${randomAlert.type} Alert</strong>
+          <br><small>Severity: ${randomAlert.severity}</small>
+          <br><small>Location: ${randomAlert.location}</small>
+        </div>
+        <button type="button" class="btn-close btn-close-white" onclick="this.parentElement.parentElement.remove()"></button>
+      </div>
+    `;
+
+    // Add slide-in animation
+    const alertStyle = document.createElement('style');
+    alertStyle.textContent = `
+      @keyframes slideInAlert {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+      }
+    `;
+    document.head.appendChild(alertStyle);
+
+    document.body.appendChild(alertDiv);
+    
+    // Auto remove after 8 seconds
+    setTimeout(() => {
+      if (alertDiv.parentNode) {
+        alertDiv.style.animation = 'slideInAlert 0.5s ease-out reverse';
+        setTimeout(() => alertDiv.remove(), 500);
+      }
+    }, 8000);
+  }
+
+  // Show random emergency alerts
+  setTimeout(() => {
+    setInterval(showEmergencyAlert, 15000);
+  }, 5000);
+
+  // Interactive dashboard elements
+  const dashboardCards = document.querySelectorAll('.card');
+  dashboardCards.forEach((card, index) => {
+    card.style.animationDelay = `${index * 0.1}s`;
+    
+    card.addEventListener('mouseenter', function() {
+      this.style.transform = 'translateY(-8px) scale(1.02)';
+      this.style.boxShadow = '0 25px 50px rgba(59, 130, 246, 0.2)';
+    });
+    
+    card.addEventListener('mouseleave', function() {
+      this.style.transform = 'translateY(0) scale(1)';
+      this.style.boxShadow = 'none';
+    });
+  });
+
+  // Add loading states to buttons
+  const buttons = document.querySelectorAll('.btn');
+  buttons.forEach(button => {
+    button.addEventListener('click', function(e) {
+      if (!this.disabled && !this.classList.contains('btn-outline-light')) {
+        const ripple = document.createElement('span');
+        ripple.style.cssText = `
+          position: absolute;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.6);
+          transform: scale(0);
+          animation: rippleEffect 0.6s linear;
+          left: ${e.offsetX - 10}px;
+          top: ${e.offsetY - 10}px;
+          width: 20px;
+          height: 20px;
+          pointer-events: none;
+        `;
+        
+        this.style.position = 'relative';
+        this.style.overflow = 'hidden';
+        this.appendChild(ripple);
+        
+        setTimeout(() => ripple.remove(), 600);
+      }
+    });
+  });
+
+  // Add ripple effect animation
+  const rippleStyle = document.createElement('style');
+  rippleStyle.textContent = `
+    @keyframes rippleEffect {
+      to {
+        transform: scale(4);
+        opacity: 0;
+      }
+    }
+  `;
+  document.head.appendChild(rippleStyle);
+
+  // Counter animation for stats
+  function animateCounter(element, target, duration = 2000) {
+    if (!element || !element.textContent) return;
+    
+    const start = parseInt(element.textContent.replace(/[^\d]/g, '')) || 0;
+    const increment = (target - start) / (duration / 16);
+    let current = start;
+    
+    const timer = setInterval(() => {
+      current += increment;
+      if ((increment > 0 && current >= target) || (increment < 0 && current <= target)) {
+        current = target;
+        clearInterval(timer);
+      }
+      
+      if (element.textContent.includes('min')) {
+        element.textContent = Math.floor(current) + ' min';
+      } else if (target > 1000) {
+        element.textContent = Math.floor(current).toLocaleString();
+      } else {
+        element.textContent = Math.floor(current);
+      }
+    }, 16);
+  }
+
+  // Trigger counter animations when stats are visible
+  const statsObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const numberElements = entry.target.querySelectorAll('.fw-bold');
+        const targets = [7, 23, 4.2, 1247];
+        
+        numberElements.forEach((el, index) => {
+          if (index < targets.length) {
+            setTimeout(() => {
+              animateCounter(el, targets[index]);
+            }, index * 200);
+          }
+        });
+        
+        statsObserver.unobserve(entry.target);
+      }
+    });
+  });
+
+  document.querySelectorAll('.card').forEach(card => {
+    statsObserver.observe(card);
+  });
 });
 
-
-
 // Global functions for enhanced interactivity
-
 window.toggleMapLayer = function(layerType) {
-
-  const buttons = document.querySelectorAll('.btn-group .btn');
-
-  buttons.forEach(btn => {
-
-    btn.classList.remove('btn-primary');
-
-    btn.classList.add('btn-outline-light');
-
-  });
-
-  
-
-  event.target.classList.remove('btn-outline-light');
-
-  event.target.classList.add('btn-primary');
-
-  
-
-  // Simulate layer change
-
-  const mapContainer = document.querySelector('.map-container');
-
-  mapContainer.style.animation = 'none';
-
-  setTimeout(() => {
-
-    mapContainer.style.animation = 'mapReveal 0.5s ease-out';
-
-  }, 10);
-
+  const buttons = document.querySelectorAll('.btn-group .btn');
+  buttons.forEach(btn => {
+    btn.classList.remove('btn-primary');
+    btn.classList.add('btn-outline-light');
+  });
+  
+  event.target.classList.remove('btn-outline-light');
+  event.target.classList.add('btn-primary');
+  
+  // Simulate layer change
+  const mapContainer = document.querySelector('.map-container');
+  mapContainer.style.animation = 'none';
+  setTimeout(() => {
+    mapContainer.style.animation = 'mapReveal 0.5s ease-out';
+  }, 10);
 };
-
-
 
 window.deployResource = function(resourceType) {
-
-  const notification = document.createElement('div');
-
-  notification.className = 'toast position-fixed';
-
-  notification.style.cssText = `
-
-    top: 120px;
-
-    right: 20px;
-
-    z-index: 1051;
-
-    background: var(--card-bg);
-
-    border: 1px solid var(--primary-color);
-
-    border-radius: 8px;
-
-    color: white;
-
-    min-width: 250px;
-
-  `;
-
-  
-
-  notification.innerHTML = `
-
-    <div class="toast-body">
-
-      <div class="d-flex align-items-center">
-
-        <i class="ri-check-circle-fill text-success me-2"></i>
-
-        <span>${resourceType} deployed successfully</span>
-
-      </div>
-
-    </div>
-
-  `;
-
-  
-
-  document.body.appendChild(notification);
-
-  
-
-  const bsToast = new bootstrap.Toast(notification, { delay: 3000 });
-
-  bsToast.show();
-
-  
-
-  notification.addEventListener('hidden.bs.toast', () => {
-
-    notification.remove();
-
-  });
-
+  const notification = document.createElement('div');
+  notification.className = 'toast position-fixed';
+  notification.style.cssText = `
+    top: 120px;
+    right: 20px;
+    z-index: 1051;
+    background: var(--card-bg);
+    border: 1px solid var(--primary-color);
+    border-radius: 8px;
+    color: white;
+    min-width: 250px;
+  `;
+  
+  notification.innerHTML = `
+    <div class="toast-body">
+      <div class="d-flex align-items-center">
+        <i class="ri-check-circle-fill text-success me-2"></i>
+        <span>${resourceType} deployed successfully</span>
+      </div>
+    </div>
+  `;
+  
+  document.body.appendChild(notification);
+  
+  const bsToast = new bootstrap.Toast(notification, { delay: 3000 });
+  bsToast.show();
+  
+  notification.addEventListener('hidden.bs.toast', () => {
+    notification.remove();
+  });
 };
-
 </script>
 
-
-
 </body>
-
 </html>
-
-      
-
-                <div class="d-flex justify-content-between align-items-center mb-3">
-
-                  <div style="width: 40px; height: 40px; background: #dc2626; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
-
-                    <i class="ri-truck-line" style="color: white;"></i>
-
-                  </div>
-
-                  <span class="badge bg-success">Available</span>
-
-                </div>
-
-                <h6 class="mb-2">Rescue Trucks</h6>
-
-                <div class="display-6 fw-bold mb-2" style="color: #22c55e;">8/12</div>
-
-                <small style="color: #94a3b8;">4 units deployed</small>
-
-              </div>
-
-            </div>
-
-          </div>
-
-          
-
-          <div class="col-md-6 col-lg-3">
-
-            <div class="resource-card card h-100" style="background: #374151;">
-
-              <div class="card-body">
-
-                <div class="d-flex justify-content-between align-items-center mb-3">
-
-                  <div style="width: 40px; height: 40px; background: #2563eb; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
-
-                    <i class="ri-ship-line" style="color: white;"></i>
-
-                  </div>
-
-                  <span class="badge bg-warning">Limited</span>
-
-                </div>
-
-                <h6 class="mb-2">Rescue Boats</h6>
-
-                <div class="display-6 fw-bold mb-2" style="color: #eab308;">2/6</div>
-
-                <small style="color: #94a3b8;">4 units deployed</small>
-
-              </div>
-
-            </div>
-
-          </div>
-
-          
-
-          <div class="col-md-6 col-lg-3">
-
-            <div class="resource-card card h-100" style="background: #374151;">
-
-              <div class="card-body">
-
-                <div class="d-flex justify-content-between align-items-center mb-3">
-
-                  <div style="width: 40px; height: 40px; background: #16a34a; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
-
-                    <i class="ri-ambulance-line" style="color: white;"></i>
-
-                  </div>
-
-                  <span class="badge bg-success">Available</span>
-
-                </div>
-
-                <h6 class="mb-2">Ambulances</h6>
-
-                <div class="display-6 fw-bold mb-2" style="color: #22c55e;">15/18</div>
-
-                <small style="color: #94a3b8;">3 units deployed</small>
-
-              </div>
-
-            </div>
-
-          </div>
-
-          
-
-          <div class="col-md-6 col-lg-3">
-
-            <div class="resource-card card h-100" style="background: #374151;">
-
-              <div class="card-body">
-
+      
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <div style="width: 40px; height: 40px; background: #dc2626; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                    <i class="ri-truck-line" style="color: white;"></i>
+                  </div>
+                  <span class="badge bg-success">Available</span>
+                </div>
+                <h6 class="mb-2">Rescue Trucks</h6>
+                <div class="display-6 fw-bold mb-2" style="color: #22c55e;">8/12</div>
+                <small style="color: #94a3b8;">4 units deployed</small>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-6 col-lg-3">
+            <div class="resource-card card h-100" style="background: #374151;">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <div style="width: 40px; height: 40px; background: #2563eb; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                    <i class="ri-ship-line" style="color: white;"></i>
+                  </div>
+                  <span class="badge bg-warning">Limited</span>
+                </div>
+                <h6 class="mb-2">Rescue Boats</h6>
+                <div class="display-6 fw-bold mb-2" style="color: #eab308;">2/6</div>
+                <small style="color: #94a3b8;">4 units deployed</small>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-6 col-lg-3">
+            <div class="resource-card card h-100" style="background: #374151;">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <div style="width: 40px; height: 40px; background: #16a34a; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                    <i class="ri-ambulance-line" style="color: white;"></i>
+                  </div>
+                  <span class="badge bg-success">Available</span>
+                </div>
+                <h6 class="mb-2">Ambulances</h6>
+                <div class="display-6 fw-bold mb-2" style="color: #22c55e;">15/18</div>
+                <small style="color: #94a3b8;">3 units deployed</small>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-6 col-lg-3">
+            <div class="resource-card card h-100" style="background: #374151;">
+              <div class="card-body">
